@@ -211,18 +211,10 @@ footer{padding:40px 0;display:flex;align-items:center;justify-content:space-betw
 </div>
 
 <script>
+const CORE_REPOS = ['causaltrack','synthetic-user-council','co-reasoning-canvas','constitutional-research-ai','autonomous-research-agent'];
 let allRepos = [];
 
-async function loadRepos() {
-  try {
-    const res = await fetch('repos.json');
-    if (!res.ok) throw new Error('not found');
-    allRepos = await res.json();
-    renderRepos(allRepos);
-  } catch(e) {
-    document.getElementById('repo-grid').innerHTML = '<div class="repo-empty">Could not load repositories.</div>';
-  }
-}
+function isCore(name) { return CORE_REPOS.includes(name.toLowerCase()); }
 
 function timeAgo(dateStr) {
   const days = Math.floor((new Date() - new Date(dateStr)) / 86400000);
@@ -238,15 +230,15 @@ function renderRepos(repos) {
   document.getElementById('repo-count').textContent = repos.length + ' repos';
   if (!repos.length) { grid.innerHTML = '<div class="repo-empty">No repositories found.</div>'; return; }
   grid.innerHTML = repos.map(r => {
-    const core = r.type === 'core';
+    const core = isCore(r.name);
     const nameColor = core ? 'color:var(--purple2)' : 'color:var(--teal2)';
-    const stars = r.stars > 0 ? '<span class="repo-stars">&#9733; ' + r.stars + '</span>' : '';
+    const stars = r.stargazers_count > 0 ? '<span class="repo-stars">&#9733; ' + r.stargazers_count + '</span>' : '';
     const lang = r.language ? '<span class="repo-lang">' + r.language + '</span>' : '';
-    return '<a href="' + r.url + '" target="_blank" rel="noopener" class="repo-card">'
-      + '<div class="repo-name"><span class="dot' + (core ? ' core' : '') + '"></span>'
+    return '<a href="' + r.html_url + '" target="_blank" rel="noopener" class="repo-card">'
+      + '<div class="repo-name"><span class="dot' + (core?' core':'') + '"></span>'
       + '<span style="' + nameColor + '">' + r.name + '</span></div>'
-      + '<div class="repo-desc">' + r.description + '</div>'
-      + '<div class="repo-meta">' + lang + stars + '<span class="repo-updated">' + timeAgo(r.updated) + '</span></div>'
+      + '<div class="repo-desc">' + (r.description||'No description') + '</div>'
+      + '<div class="repo-meta">' + lang + stars + '<span class="repo-updated">' + timeAgo(r.updated_at) + '</span></div>'
       + '</a>';
   }).join('');
 }
@@ -254,8 +246,22 @@ function renderRepos(repos) {
 function filterRepos(type, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const filtered = type === 'all' ? allRepos : allRepos.filter(r => r.type === (type === 'cpr' ? 'core' : 'orbital'));
+  const filtered = type==='all' ? allRepos : type==='cpr' ? allRepos.filter(r=>isCore(r.name)) : allRepos.filter(r=>!isCore(r.name));
   renderRepos(filtered);
+}
+
+async function loadRepos() {
+  try {
+    const res = await fetch('https://api.github.com/users/kgkazakos/repos?per_page=100&sort=updated');
+    if (!res.ok) throw new Error('API error');
+    allRepos = (await res.json()).filter(r => !r.fork && r.name !== 'kgkazakos');
+    renderRepos(allRepos);
+  } catch(e) {
+    const fb = await fetch('repos.json');
+    const data = await fb.json();
+    allRepos = data.map(r => ({name:r.name,description:r.description,html_url:r.url,stargazers_count:r.stars,language:r.language,updated_at:r.updated}));
+    renderRepos(allRepos);
+  }
 }
 
 loadRepos();
