@@ -3,221 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Kostas Kazakos — Computational Product Researcher</title>
-<meta name="title" content="Kostas Kazakos — Computational Product Researcher">
 <meta name="description" content="Building AI-native research infrastructure. Systems that extend the reach of human insight.">
-
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kgkazakos.github.io/">
 <meta property="og:title" content="Kostas Kazakos — Computational Product Researcher">
 <meta property="og:description" content="Building AI-native research infrastructure. Systems that extend the reach of human insight.">
-
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://kgkazakos.github.io/">
 <meta property="twitter:title" content="Kostas Kazakos — Computational Product Researcher">
 <meta property="twitter:description" content="Building AI-native research infrastructure. Systems that extend the reach of human insight.">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:       #080810;
-  --bg2:      #0f0f1a;
-  --bg3:      #16162a;
-  --border:   rgba(255,255,255,0.07);
-  --border2:  rgba(255,255,255,0.12);
-  --text:     #e8e6f0;
-  --muted:    #8a88a0;
-  --teal:     #1D9E75;
-  --teal2:    #5DCAA5;
-  --purple:   #7F77DD;
-  --purple2:  #AFA9EC;
-  --amber:    #BA7517;
-  --amber2:   #EF9F27;
-  --coral:    #D85A30;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-::selection { background: var(--purple); color: #fff; }
-a { color: inherit; text-decoration: none; }
-.mono { font-family: 'IBM Plex Mono', monospace; }
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.4;
-}
-
-.container { max-width: 900px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
-
-nav {
-  padding: 28px 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); letter-spacing: 0.05em; }
-.nav-logo span { color: var(--teal2); }
-.nav-links { display: flex; gap: 24px; }
-.nav-links a { font-size: 12px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); letter-spacing: 0.04em; transition: color 0.2s; }
-.nav-links a:hover { color: var(--text); }
-
-.hero { padding: 80px 0 72px; border-bottom: 1px solid var(--border); }
-.hero-tag {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px; color: var(--teal);
-  letter-spacing: 0.12em; text-transform: uppercase;
-  margin-bottom: 24px; display: flex; align-items: center; gap: 8px;
-}
-.hero-tag::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--teal); }
-.hero h1 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(42px, 7vw, 72px);
-  font-weight: 400; line-height: 1.05;
-  letter-spacing: -0.02em; margin-bottom: 28px; color: var(--text);
-}
-.hero h1 em { font-style: italic; color: var(--purple2); }
-.hero-sub { font-size: 16px; color: var(--muted); max-width: 580px; line-height: 1.65; margin-bottom: 40px; }
-.hero-sub strong { color: var(--text); font-weight: 400; }
-.hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 9px 18px; border-radius: 4px;
-  font-size: 12px; font-family: 'IBM Plex Mono', monospace;
-  letter-spacing: 0.04em; transition: all 0.2s; cursor: pointer; border: 1px solid;
-}
-.btn-primary { background: var(--teal); border-color: var(--teal); color: #fff; }
-.btn-primary:hover { background: var(--teal2); border-color: var(--teal2); color: #0a0a0f; }
-.btn-ghost { background: transparent; border-color: var(--border2); color: var(--muted); }
-.btn-ghost:hover { border-color: var(--muted); color: var(--text); }
-
-section { padding: 64px 0; border-bottom: 1px solid var(--border); }
-.section-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 32px;
-  display: flex; align-items: center; gap: 10px;
-}
-.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-.cpr-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-  background: var(--border); border: 1px solid var(--border);
-  border-radius: 6px; overflow: hidden; margin-top: 8px;
-}
-.cpr-cell { background: var(--bg2); padding: 24px; }
-.cpr-cell-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-.cpr-cell-label.teal { color: var(--teal); }
-.cpr-cell-label.purple { color: var(--purple); }
-.cpr-cell p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-.cpr-cell p strong { color: var(--text); font-weight: 400; }
-
-.thesis {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px; font-style: italic; color: var(--purple2);
-  line-height: 1.4; padding: 28px 24px 32px;
-  border-left: 2px solid var(--purple); margin-bottom: 32px;
-}
-
-.projects-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-.projects-filter { display: flex; gap: 6px; }
-.filter-btn {
-  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-  letter-spacing: 0.08em; padding: 4px 10px; border-radius: 3px;
-  border: 1px solid var(--border2); color: var(--muted);
-  background: transparent; cursor: pointer; transition: all 0.15s;
-}
-.filter-btn:focus-visible { outline: 1px solid var(--teal); outline-offset: 2px; }
-.filter-btn:hover, .filter-btn.active { border-color: var(--teal); color: var(--teal); }
-
-#repo-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1px; background: var(--border);
-  border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
-}
-.repo-card {
-  background: var(--bg2); padding: 20px 22px;
-  display: flex; flex-direction: column; gap: 10px;
-  transition: background 0.15s; cursor: pointer;
-}
-.repo-card:hover { background: var(--bg3); }
-.repo-name { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
-.repo-name .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
-.repo-name .dot.core { background: var(--purple); }
-.repo-desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
-.repo-meta { display: flex; align-items: center; gap: 10px; }
-.repo-lang { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); }
-.repo-stars { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--amber2); display: flex; align-items: center; gap: 3px; }
-.repo-updated { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-left: auto; }
-.repo-loading, .repo-empty {
-  grid-column: 1 / -1; padding: 40px; text-align: center;
-  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
-  color: var(--muted); background: var(--bg2);
-}
-.pulse { animation: pulse 1.5s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
-
-.pub-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-.pub-item {
-  background: var(--bg2); padding: 20px 24px;
-  display: grid; grid-template-columns: auto 1fr auto;
-  gap: 16px; align-items: start; transition: background 0.15s;
-}
-.pub-item:hover { background: var(--bg3); }
-.pub-year { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; min-width: 36px; }
-.pub-title { font-size: 13px; color: var(--text); line-height: 1.5; margin-bottom: 4px; }
-.pub-venue { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.06em; }
-.pub-status { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 3px; white-space: nowrap; }
-.pub-status.inprogress { background: rgba(186,117,23,0.15); color: var(--amber2); border: 1px solid rgba(186,117,23,0.3); }
-.pub-status.live { background: rgba(29,158,117,0.15); color: var(--teal2); border: 1px solid rgba(29,158,117,0.3); }
-
-.stack-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.stack-pill { font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 5px 12px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); transition: all 0.15s; }
-.stack-pill:hover { border-color: var(--teal); color: var(--teal); }
-.stack-pill.highlight { border-color: rgba(127,119,221,0.4); color: var(--purple2); }
-
-footer { padding: 40px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-.footer-left { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); }
-.footer-left span { color: var(--teal); }
-.footer-links { display: flex; gap: 20px; }
-.footer-links a { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); transition: color 0.2s; }
-.footer-links a:hover { color: var(--text); }
-
-.fade-in { opacity: 0; transform: translateY(16px); animation: fadeIn 0.6s ease forwards; }
-.fade-in:nth-child(2) { animation-delay: 0.1s; }
-.fade-in:nth-child(3) { animation-delay: 0.2s; }
-.fade-in:nth-child(4) { animation-delay: 0.3s; }
-@keyframes fadeIn { to { opacity: 1; transform: none; } }
-
-@media (max-width: 600px) {
-  .cpr-grid { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  .pub-item { grid-template-columns: 1fr; }
-  .pub-year { display: none; }
-}
+:root{--bg:#080810;--bg2:#0f0f1a;--bg3:#16162a;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#e8e6f0;--muted:#8a88a0;--teal:#1D9E75;--teal2:#5DCAA5;--purple:#7F77DD;--purple2:#AFA9EC;--amber:#BA7517;--amber2:#EF9F27;--coral:#D85A30;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
+::selection{background:var(--purple);color:#fff;}
+a{color:inherit;text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+.container{max-width:900px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);letter-spacing:0.05em;}
+.nav-logo span{color:var(--teal2);}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--muted);letter-spacing:0.04em;transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.hero{padding:80px 0 72px;border-bottom:1px solid var(--border);}
+.hero-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:8px;}
+.hero-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--teal);}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(42px,7vw,72px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:28px;color:var(--text);}
+.hero h1 em{font-style:italic;color:var(--purple2);}
+.hero-sub{font-size:16px;color:var(--muted);max-width:580px;line-height:1.65;margin-bottom:40px;}
+.hero-sub strong{color:var(--text);font-weight:400;}
+.hero-links{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:4px;font-size:12px;font-family:'IBM Plex Mono',monospace;letter-spacing:0.04em;transition:all 0.2s;cursor:pointer;border:1px solid;}
+.btn-primary{background:var(--teal);border-color:var(--teal);color:#fff;}
+.btn-primary:hover{background:var(--teal2);border-color:var(--teal2);color:#0a0a0f;}
+.btn-ghost{background:transparent;border-color:var(--border2);color:var(--muted);}
+.btn-ghost:hover{border-color:var(--muted);color:var(--text);}
+section{padding:64px 0;border-bottom:1px solid var(--border);}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:32px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.cpr-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:8px;}
+.cpr-cell{background:var(--bg2);padding:24px;}
+.cpr-cell-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;}
+.cpr-cell-label.teal{color:var(--teal);}
+.cpr-cell-label.purple{color:var(--purple);}
+.cpr-cell p{font-size:13px;color:var(--muted);line-height:1.6;}
+.cpr-cell p strong{color:var(--text);font-weight:400;}
+.thesis{font-family:'Instrument Serif',serif;font-size:24px;font-style:italic;color:var(--purple2);line-height:1.4;padding:28px 24px 32px;border-left:2px solid var(--purple);margin-bottom:32px;}
+.projects-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.projects-filter{display:flex;gap:6px;}
+.filter-btn{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;padding:4px 10px;border-radius:3px;border:1px solid var(--border2);color:var(--muted);background:transparent;cursor:pointer;transition:all 0.15s;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--teal);color:var(--teal);}
+#repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.repo-card{background:var(--bg2);padding:20px 22px;display:flex;flex-direction:column;gap:10px;transition:background 0.15s;cursor:pointer;}
+.repo-card:hover{background:var(--bg3);}
+.repo-name{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px;}
+.repo-name .dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;}
+.repo-name .dot.core{background:var(--purple);}
+.repo-desc{font-size:12px;color:var(--muted);line-height:1.5;flex:1;}
+.repo-meta{display:flex;align-items:center;gap:10px;}
+.repo-lang{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);}
+.repo-stars{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--amber2);display:flex;align-items:center;gap:3px;}
+.repo-updated{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto;}
+.repo-loading,.repo-empty{grid-column:1/-1;padding:40px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);background:var(--bg2);}
+.pub-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.pub-item{background:var(--bg2);padding:20px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:start;transition:background 0.15s;}
+.pub-item:hover{background:var(--bg3);}
+.pub-year{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);padding-top:2px;min-width:36px;}
+.pub-title{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:4px;}
+.pub-venue{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.06em;}
+.pub-status{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 8px;border-radius:3px;white-space:nowrap;}
+.pub-status.inprogress{background:rgba(186,117,23,0.15);color:var(--amber2);border:1px solid rgba(186,117,23,0.3);}
+.pub-status.live{background:rgba(29,158,117,0.15);color:var(--teal2);border:1px solid rgba(29,158,117,0.3);}
+.stack-row{display:flex;flex-wrap:wrap;gap:8px;}
+.stack-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 12px;border-radius:3px;border:1px solid var(--border2);color:var(--muted);transition:all 0.15s;}
+.stack-pill:hover{border-color:var(--teal);color:var(--teal);}
+.stack-pill.highlight{border-color:rgba(127,119,221,0.4);color:var(--purple2);}
+footer{padding:40px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-left{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);}
+.footer-left span{color:var(--teal);}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);transition:color 0.2s;}
+.footer-links a:hover{color:var(--text);}
+.fade-in{opacity:0;transform:translateY(16px);animation:fadeIn 0.6s ease forwards;}
+.fade-in:nth-child(2){animation-delay:0.1s;}
+.fade-in:nth-child(3){animation-delay:0.2s;}
+.fade-in:nth-child(4){animation-delay:0.3s;}
+@keyframes fadeIn{to{opacity:1;transform:none;}}
+@media(max-width:600px){.cpr-grid{grid-template-columns:1fr;}.nav-links{display:none;}.pub-item{grid-template-columns:1fr;}.pub-year{display:none;}}
 </style>
 </head>
 <body>
-
 <div class="container">
-
   <nav>
-    <div class="nav-logo mono">kgkazakos<span>.github.io</span></div>
+    <div class="nav-logo">kgkazakos<span>.github.io</span></div>
     <div class="nav-links">
       <a href="#cpr">CPR</a>
       <a href="#projects">Projects</a>
@@ -230,21 +113,17 @@ footer { padding: 40px 0; display: flex; align-items: center; justify-content: s
   <div class="hero">
     <div class="hero-tag fade-in">Computational Product Researcher</div>
     <h1 class="fade-in">Research, redefined for an<br><em>AI-native world.</em></h1>
-    <p class="hero-sub fade-in">
-      I build <strong>AI-native research infrastructure</strong> — a new paradigm where systems don't just assist researchers, but co-reason with them. Currently writing <em>AI-Native Research</em>, a book on the transition from episodic insights to continuous intelligence.
-    </p>
+    <p class="hero-sub fade-in">I build <strong>AI-native research infrastructure</strong> — a new paradigm where systems don't just assist researchers, but co-reason with them. Currently writing <em>AI-Native Research</em>, a book on the transition from episodic insights to continuous intelligence.</p>
     <div class="hero-links fade-in">
       <a href="https://github.com/kgkazakos" target="_blank" rel="noopener" class="btn btn-primary">github.com/kgkazakos</a>
       <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
-      <a href="/cdn-cgi/l/email-protection#aec5c9c5cfd4cfc5c1ddeec9c3cfc7c280cdc1c3" class="btn btn-ghost">Contact</a>
+      <a href="mailto:kgkazakos@gmail.com" class="btn btn-ghost">Contact</a>
     </div>
   </div>
 
   <section id="cpr">
     <div class="section-label">Computational Product Research</div>
-    <div class="thesis">
-      "CPR is the bridge from static insight to agentic intelligence. We are moving from studying users to building systems that co-evolve with them."
-    </div>
+    <div class="thesis">"CPR is the bridge from static insight to agentic intelligence. We are moving from studying users to building systems that co-evolve with them."</div>
     <div class="cpr-grid">
       <div class="cpr-cell">
         <div class="cpr-cell-label teal">The AI-native stack</div>
@@ -265,15 +144,13 @@ footer { padding: 40px 0; display: flex; align-items: center; justify-content: s
     <div class="section-label">Open-source projects</div>
     <div class="projects-header">
       <div class="projects-filter">
-        <button class="filter-btn active" onclick="filterRepos('all', this)">All</button>
-        <button class="filter-btn" onclick="filterRepos('cpr', this)">CPR core</button>
-        <button class="filter-btn" onclick="filterRepos('orbital', this)">Orbital</button>
+        <button class="filter-btn active" onclick="filterRepos('all',this)">All</button>
+        <button class="filter-btn" onclick="filterRepos('cpr',this)">CPR core</button>
+        <button class="filter-btn" onclick="filterRepos('orbital',this)">Orbital</button>
       </div>
       <span id="repo-count" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)"></span>
     </div>
-    <div id="repo-grid">
-      <div class="repo-loading pulse">Loading repositories from GitHub...</div>
-    </div>
+    <div id="repo-grid"><div class="repo-loading">Loading repositories...</div></div>
   </section>
 
   <section id="publications">
@@ -281,34 +158,22 @@ footer { padding: 40px 0; display: flex; align-items: center; justify-content: s
     <div class="pub-list">
       <div class="pub-item">
         <div class="pub-year">2027</div>
-        <div>
-          <div class="pub-title">CausalTrack: Detecting the Say-Do Gap in User Research via Multimodal Behavioural Analysis</div>
-          <div class="pub-venue">ACM CHI 2027 — Conference on Human Factors in Computing Systems</div>
-        </div>
+        <div><div class="pub-title">CausalTrack: Detecting the Say-Do Gap in User Research via Multimodal Behavioural Analysis</div><div class="pub-venue">ACM CHI 2027 — Conference on Human Factors in Computing Systems</div></div>
         <div class="pub-status inprogress">In progress</div>
       </div>
       <div class="pub-item">
         <div class="pub-year">2027</div>
-        <div>
-          <div class="pub-title">Synthetic User Council: Agent-Led Ecosystem Simulation for Pre-Deployment Product Research</div>
-          <div class="pub-venue">ACM CHI 2027 — Conference on Human Factors in Computing Systems</div>
-        </div>
+        <div><div class="pub-title">Synthetic User Council: Agent-Led Ecosystem Simulation for Pre-Deployment Product Research</div><div class="pub-venue">ACM CHI 2027 — Conference on Human Factors in Computing Systems</div></div>
         <div class="pub-status inprogress">In progress</div>
       </div>
       <div class="pub-item">
         <div class="pub-year">2027</div>
-        <div>
-          <div class="pub-title">When Should Research Agents Act Autonomously? Safety Boundaries for AI-Conducted Studies</div>
-          <div class="pub-venue">ACM FAccT 2027 — Fairness, Accountability, and Transparency</div>
-        </div>
+        <div><div class="pub-title">When Should Research Agents Act Autonomously? Safety Boundaries for AI-Conducted Studies</div><div class="pub-venue">ACM FAccT 2027 — Fairness, Accountability, and Transparency</div></div>
         <div class="pub-status inprogress">In progress</div>
       </div>
       <div class="pub-item">
         <div class="pub-year">2026</div>
-        <div>
-          <div class="pub-title">CausalTrack — Methodology Validation Study</div>
-          <div class="pub-venue">github.com/kgkazakos/causaltrack · 50 synthetic interviews · 611-node knowledge graph</div>
-        </div>
+        <div><div class="pub-title">CausalTrack — Methodology Validation Study</div><div class="pub-venue">github.com/kgkazakos/causaltrack · 50 synthetic interviews · 611-node knowledge graph</div></div>
         <div class="pub-status live">Live</div>
       </div>
     </div>
@@ -336,44 +201,27 @@ footer { padding: 40px 0; display: flex; align-items: center; justify-content: s
   </section>
 
   <footer>
-    <div class="footer-left">
-      Kostas Kazakos · Melbourne, AU · <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660d010d071c070d091526010b070f0a4805090b">[email&#160;protected]</a></span>
-    </div>
+    <div class="footer-left">Kostas Kazakos · Melbourne, AU · <span>kgkazakos@gmail.com</span></div>
     <div class="footer-links">
       <a href="https://github.com/kgkazakos" target="_blank" rel="noopener">GitHub</a>
       <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="/cdn-cgi/l/email-protection#2d464a464c574c46425e6d4a404c4441034e4240">Email</a>
+      <a href="mailto:kgkazakos@gmail.com">Email</a>
     </div>
   </footer>
-
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const CORE_REPOS_LIST = ['causaltrack', 'synthetic-user-council', 'co-reasoning-canvas', 'constitutional-research-ai', 'autonomous-research-agent'];
-
-const FALLBACK_REPOS = [
-  { name:'causaltrack', description:'Multimodal Say-Do Gap detection using Gemini + Neo4j knowledge graphs.', html_url:'https://github.com/kgkazakos/causaltrack', stargazers_count:0, language:'Python', updated_at:new Date().toISOString() },
-  { name:'synthetic-user-council', description:'Agent-led ecosystem simulation for pre-deployment product research.', html_url:'https://github.com/kgkazakos/synthetic-user-council', stargazers_count:0, language:'Python', updated_at:new Date().toISOString() },
-  { name:'transcript-cleaner', description:'Fix messy interview transcripts — speaker labels, fillers, fragmented turns. Rule-based + optional LLM.', html_url:'https://github.com/kgkazakos/transcript-cleaner', stargazers_count:0, language:'Python', updated_at:new Date().toISOString() },
-  { name:'kgkazakos.github.io', description:'Personal site — AI-native research infrastructure, CPR orbital tools, and writing.', html_url:'https://github.com/kgkazakos/kgkazakos.github.io', stargazers_count:0, language:'HTML', updated_at:new Date().toISOString() },
-];
-
+<script>
 let allRepos = [];
 
 async function loadRepos() {
   try {
-    const res = await fetch('https://api.github.com/users/kgkazakos/repos?per_page=100&sort=updated');
-    if (!res.ok) throw new Error('rate limit');
-    allRepos = (await res.json()).filter(r => !r.fork && r.name !== 'kgkazakos');
+    const res = await fetch('repos.json');
+    if (!res.ok) throw new Error('not found');
+    allRepos = await res.json();
     renderRepos(allRepos);
   } catch(e) {
-    allRepos = FALLBACK_REPOS;
-    renderRepos(allRepos);
+    document.getElementById('repo-grid').innerHTML = '<div class="repo-empty">Could not load repositories.</div>';
   }
-}
-
-function isCore(name) {
-  return CORE_REPOS_LIST.some(c => name.toLowerCase().includes(c.replace(/-/g,'').substring(0,6)));
 }
 
 function timeAgo(dateStr) {
@@ -388,22 +236,29 @@ function timeAgo(dateStr) {
 function renderRepos(repos) {
   const grid = document.getElementById('repo-grid');
   document.getElementById('repo-count').textContent = repos.length + ' repos';
-  if (!repos.length) { grid.innerHTML = `<div class="repo-empty">No repositories found.</div>`; return; }
+  if (!repos.length) { grid.innerHTML = '<div class="repo-empty">No repositories found.</div>'; return; }
   grid.innerHTML = repos.map(r => {
-    const core = isCore(r.name);
+    const core = r.type === 'core';
     const nameColor = core ? 'color:var(--purple2)' : 'color:var(--teal2)';
-    const stars = r.stargazers_count > 0 ? `<span class="repo-stars">★ ${r.stargazers_count}</span>` : '';
-    const lang = r.language ? `<span class="repo-lang">${r.language}</span>` : '';
-    return `<a href="${r.html_url}" target="_blank" rel="noopener" class="repo-card">
-      <div class="repo-name">
-        <span class="dot${core?' core':''}"></span>
-        <span style="${nameColor}">${r.name}</span>
-      </div>
-      <div class="repo-desc">${r.description || 'No description'}</div>
-      <div class="repo-meta">${lang}${stars}<span class="repo-updated">${timeAgo(r.updated_at)}</span></div>
-    </a>`;
+    const stars = r.stars > 0 ? '<span class="repo-stars">&#9733; ' + r.stars + '</span>' : '';
+    const lang = r.language ? '<span class="repo-lang">' + r.language + '</span>' : '';
+    return '<a href="' + r.url + '" target="_blank" rel="noopener" class="repo-card">'
+      + '<div class="repo-name"><span class="dot' + (core ? ' core' : '') + '"></span>'
+      + '<span style="' + nameColor + '">' + r.name + '</span></div>'
+      + '<div class="repo-desc">' + r.description + '</div>'
+      + '<div class="repo-meta">' + lang + stars + '<span class="repo-updated">' + timeAgo(r.updated) + '</span></div>'
+      + '</a>';
   }).join('');
 }
 
 function filterRepos(type, btn) {
-  document.qu
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = type === 'all' ? allRepos : allRepos.filter(r => r.type === (type === 'cpr' ? 'core' : 'orbital'));
+  renderRepos(filtered);
+}
+
+loadRepos();
+</script>
+</body>
+</html>

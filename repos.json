@@ -1,0 +1,29 @@
+[
+  {
+    "name": "causaltrack",
+    "description": "Multimodal Say-Do Gap detection — Gemini + Neo4j knowledge graph. Detects divergence between stated and observed user behaviour in research sessions.",
+    "url": "https://github.com/kgkazakos/causaltrack",
+    "language": "Python",
+    "stars": 0,
+    "type": "core",
+    "updated": "2026-03-19"
+  },
+  {
+    "name": "synthetic-user-council",
+    "description": "Agent-led ecosystem simulation for pre-deployment product research. Multi-agent pre-study assumption testing with a React/Next.js UI.",
+    "url": "https://github.com/kgkazakos/synthetic-user-council",
+    "language": "Python",
+    "stars": 0,
+    "type": "core",
+    "updated": "2026-03-19"
+  },
+  {
+    "name": "transcript-cleaner",
+    "description": "Fix messy interview transcripts in seconds — speaker labels, filler words, fragmented turns, broken timestamps. Rule-based + model-agnostic LLM.",
+    "url": "https://github.com/kgkazakos/transcript-cleaner",
+    "language": "Python",
+    "stars": 0,
+    "type": "orbital",
+    "updated": "2026-03-20"
+  }
+]

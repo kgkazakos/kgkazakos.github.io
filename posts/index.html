@@ -99,16 +99,16 @@ footer{padding:40px 0;display:flex;align-items:center;justify-content:space-betw
   <div id="posts-list"></div>
 
   <footer>
-    <div class="footer-left">Kostas Kazakos · Melbourne, AU · <span>kgkazakos@gmail.com</span></div>
+    <div class="footer-left">Kostas Kazakos · Melbourne, AU · <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9b2beb2b8a3b8b2b6aa99beb4b8b0b5f7bab6b4">[email&#160;protected]</a></span></div>
     <div class="footer-links">
       <a href="https://github.com/kgkazakos" target="_blank" rel="noopener">GitHub</a>
       <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:kgkazakos@gmail.com">Email</a>
+      <a href="/cdn-cgi/l/email-protection#6e0509050f140f05011d2e09030f0702400d0103">Email</a>
     </div>
   </footer>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const SEASON_LABEL={1:'S1 · Signal starters',2:'S2 · Synthetic & simulation',3:'S3 · Evaluation & benchmarks',4:'S4 · Research ops',5:'S5 · Quant & mixed methods',6:'S6 · Pre-study & impact'};
 let posts=[], activeType='all', activeTag=null;
 
@@ -159,10 +159,4 @@ function renderPosts(list){
   document.getElementById('post-count').textContent=list.length+' of '+list.length+' posts';
 }
 
-fetch('posts.json')
-  .then(r=>r.json())
-  .then(data=>{posts=data.sort((a,b)=>new Date(b.date)-new Date(a.date));renderPosts(posts);})
-  .catch(()=>{document.getElementById('posts-list').innerHTML=`<div class="empty">Could not load posts.</div>`;});
-</script>
-</body>
-</html>
+fetch
