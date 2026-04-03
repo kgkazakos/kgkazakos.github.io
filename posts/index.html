@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing — Kostas Kazakos</title>
+<meta name="description" content="Weekly writing on AI-native research, CPR orbital tools, and computational product research.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080810;--bg2:#0f0f1a;--bg3:#16162a;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#e8e6f0;--muted:#8a88a0;--teal:#1D9E75;--teal2:#5DCAA5;--purple:#7F77DD;--purple2:#AFA9EC;--amber:#BA7517;--amber2:#EF9F27;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
+::selection{background:var(--purple);color:#fff;}
+a{color:inherit;text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+.container{max-width:900px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);letter-spacing:0.05em;}
+.nav-logo span{color:var(--teal2);}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--muted);letter-spacing:0.04em;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--text);}
+.page-header{padding:56px 0 32px;border-bottom:1px solid var(--border);}
+.page-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.page-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--teal);}
+.page-header h1{font-family:'Instrument Serif',serif;font-size:clamp(32px,5vw,52px);font-weight:400;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;}
+.page-header p{font-size:15px;color:var(--muted);max-width:520px;line-height:1.6;}
+.filter-bar{display:flex;gap:10px;padding:28px 0 0;flex-wrap:wrap;align-items:center;}
+.filter-group-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
+.filter-divider{width:1px;height:14px;background:var(--border2);}
+.filter-btn{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;padding:4px 12px;border-radius:3px;border:1px solid var(--border2);color:var(--muted);background:transparent;cursor:pointer;transition:all 0.15s;}
+.filter-btn:hover{border-color:var(--muted);color:var(--text);}
+.filter-btn.active-all{border-color:var(--muted);color:var(--text);}
+.filter-btn.active-orbital{border-color:var(--teal);color:var(--teal);}
+.filter-btn.active-general{border-color:var(--purple);color:var(--purple2);}
+.filter-btn.active-tag{border-color:var(--amber);color:var(--amber2);}
+#post-count{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);display:block;padding:12px 0 0;}
+#posts-list{padding:32px 0;}
+.post-row{display:grid;grid-template-columns:130px 1fr auto;gap:20px;align-items:start;padding:24px 0;border-bottom:1px solid var(--border);}
+.post-row:first-child{border-top:1px solid var(--border);}
+.post-row.hidden{display:none;}
+.post-row:hover .post-title{color:var(--teal2);}
+.post-left{display:flex;flex-direction:column;gap:6px;}
+.post-date{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);}
+.type-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid;width:fit-content;}
+.type-badge.orbital{border-color:rgba(29,158,117,0.4);color:var(--teal);background:rgba(29,158,117,0.08);}
+.type-badge.general{border-color:rgba(127,119,221,0.4);color:var(--purple2);background:rgba(127,119,221,0.08);}
+.post-content{display:flex;flex-direction:column;gap:8px;}
+.post-title{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;color:var(--text);line-height:1.3;transition:color 0.2s;cursor:pointer;}
+.post-tldr{font-size:13px;color:var(--muted);line-height:1.55;max-width:560px;}
+.post-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid var(--border2);color:var(--muted);}
+.post-season{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;padding-top:4px;text-align:right;}
+.empty{padding:60px 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);}
+footer{padding:40px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--border);}
+.footer-left{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);}
+.footer-left span{color:var(--teal);}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);transition:color 0.2s;}
+.footer-links a:hover{color:var(--text);}
+@media(max-width:640px){.nav-links{display:none;}.post-row{grid-template-columns:1fr;gap:8px;}.post-season{display:none;}.filter-bar{gap:6px;}}
+</style>
+</head>
+<body>
+<div class="container">
+  <nav>
+    <a href="../index.html" class="nav-logo">kgkazakos<span>.github.io</span></a>
+    <div class="nav-links">
+      <a href="../index.html#cpr">CPR</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="index.html" class="active">Writing</a>
+      <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-tag">Writing</div>
+    <h1>Dispatches from the frontier of AI-native research.</h1>
+    <p>Weekly orbital tool posts, plus broader writing on CPR, research infrastructure, and what it means to do research in an AI-native world. Full posts here — short version on LinkedIn.</p>
+    <div class="filter-bar">
+      <span class="filter-group-label">Type</span>
+      <button class="filter-btn active-all" onclick="setType('all',this)">All</button>
+      <button class="filter-btn" onclick="setType('orbital',this)">Orbital tools</button>
+      <button class="filter-btn" onclick="setType('general',this)">Writing</button>
+      <div class="filter-divider"></div>
+      <span class="filter-group-label">Season</span>
+      <button class="filter-btn" onclick="setTag('orbital-s1',this)">S1</button>
+      <button class="filter-btn" onclick="setTag('orbital-s2',this)">S2</button>
+      <button class="filter-btn" onclick="setTag('orbital-s3',this)">S3</button>
+      <button class="filter-btn" onclick="setTag('orbital-s4',this)">S4</button>
+      <button class="filter-btn" onclick="setTag('orbital-s5',this)">S5</button>
+      <button class="filter-btn" onclick="setTag('orbital-s6',this)">S6</button>
+    </div>
+    <span id="post-count"></span>
+  </div>
+
+  <div id="posts-list"></div>
+
+  <footer>
+    <div class="footer-left">Kostas Kazakos · Melbourne, AU · <span>kgkazakos@gmail.com</span></div>
+    <div class="footer-links">
+      <a href="https://github.com/kgkazakos" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:kgkazakos@gmail.com">Email</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+const SEASON_LABEL={1:'S1 · Signal starters',2:'S2 · Synthetic & simulation',3:'S3 · Evaluation & benchmarks',4:'S4 · Research ops',5:'S5 · Quant & mixed methods',6:'S6 · Pre-study & impact'};
+let posts=[], activeType='all', activeTag=null;
+
+function formatDate(d){return new Date(d).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});}
+
+function applyFilters(){
+  let visible=0;
+  document.querySelectorAll('.post-row').forEach(row=>{
+    const typeOk=activeType==='all'||row.dataset.type===activeType;
+    const tagOk=!activeTag||row.dataset.tags.split(',').includes(activeTag);
+    const show=typeOk&&tagOk;
+    row.classList.toggle('hidden',!show);
+    if(show)visible++;
+  });
+  document.getElementById('post-count').textContent=visible+' of '+posts.length+' posts';
+}
+
+function setType(type,btn){
+  activeType=type; activeTag=null;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active-all','active-orbital','active-general','active-tag'));
+  btn.classList.add(type==='all'?'active-all':type==='orbital'?'active-orbital':'active-general');
+  applyFilters();
+}
+
+function setTag(tag,btn){
+  if(activeTag===tag){activeTag=null;btn.classList.remove('active-tag');}
+  else{activeTag=tag;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active-tag'));btn.classList.add('active-tag');}
+  applyFilters();
+}
+
+function renderPosts(list){
+  const el=document.getElementById('posts-list');
+  if(!list.length){el.innerHTML=`<div class="empty">No posts yet.</div>`;return;}
+  el.innerHTML=list.map((p,i)=>`
+    <div class="post-row" data-type="${p.type}" data-tags="${p.tags.join(',')}">
+      <div class="post-left">
+        <span class="post-date">${formatDate(p.date)}</span>
+        <span class="type-badge ${p.type}">${p.type==='orbital'?'Orbital tool':'Writing'}</span>
+      </div>
+      <div class="post-content">
+        <a href="post.html?slug=${p.slug}" class="post-title">${p.title}</a>
+        <div class="post-tldr">${p.tldr}</div>
+        <div class="post-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="post-season">${p.season?SEASON_LABEL[p.season]:''}</div>
+    </div>
+  `).join('');
+  document.getElementById('post-count').textContent=list.length+' of '+list.length+' posts';
+}
+
+fetch('posts.json')
+  .then(r=>r.json())
+  .then(data=>{posts=data.sort((a,b)=>new Date(b.date)-new Date(a.date));renderPosts(posts);})
+  .catch(()=>{document.getElementById('posts-list').innerHTML=`<div class="empty">Could not load posts.</div>`;});
+</script>
+</body>
+</html>

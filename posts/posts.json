@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "transcript-cleaner",
+    "title": "transcript-cleaner: fixing the unglamorous problem every UX researcher ignores",
+    "date": "2026-03-20",
+    "type": "orbital",
+    "season": 1,
+    "tool": "transcript-cleaner",
+    "repo": "https://github.com/kgkazakos/transcript-cleaner",
+    "tags": ["qualitative", "cli", "open-source", "orbital-s1"],
+    "tldr": "A Python tool that fixes messy interview transcripts in seconds — speaker labels, filler words, fragmented turns, broken timestamps. Rule-based by default, LLM-powered when you need it.",
+    "body": "## The problem nobody talks about\n\nAfter every user interview, researchers lose 1–2 hours fixing what the auto-transcriber broke. Speaker labels that don't match. Filler words everywhere. Three-word fragments that should be one turn. Timestamps in five different formats.\n\nIt's not glamorous. But it's the kind of friction that quietly kills research momentum — especially when you're running 10+ sessions.\n\n\"But doesn't Zoom / Otter / Dovetail handle that?\"\n\nThey handle **transcription**. That's a different layer. They convert audio to text. `transcript-cleaner` fixes what they produce.\n\n## What it does\n\nFive operations, in order:\n\n1. **Fix speaker label inconsistencies** — fuzzy matching clusters `Kostas K`, `K Kazakos`, and `interviewer` into a single canonical label. LLM fallback for genuinely ambiguous cases.\n2. **Fill unlabelled turns** — heuristic continuation for short turns, LLM inference for longer ambiguous ones.\n3. **Remove filler words** — regex pipeline strips `um`, `uh`, `like`, `you know`, `sort of`, `basically` and cleans up spacing.\n4. **Merge fragmented short turns** — consecutive same-speaker turns under 3 words get merged.\n5. **Normalise timestamps** — converts any format (`00:01:23.456`, `1:23`, `83` seconds) to clean `HH:MM:SS`.\n\n## Model-agnostic by design\n\nNo API key required for the core pipeline. Plug in Claude, GPT-4o, or Gemini only when you need the smarter inference.\n\n## Part of the CPR Orbital Ecosystem\n\nThis is the first of 40 orbital tools I'm shipping every Friday through December 2026.\n\n```bash\npip install transcript-cleaner[cli]\ntranscript-cleaner clean my_interview.txt\n```"
+  },
+  {
+    "slug": "what-ai-native-research-actually-means",
+    "title": "What AI-native research actually means — and what it doesn't",
+    "date": "2026-03-19",
+    "type": "general",
+    "season": null,
+    "tool": null,
+    "repo": null,
+    "tags": ["ai-native", "computational-product-research", "perspective"],
+    "tldr": "AI-native research isn't about replacing researchers with agents. It's about building infrastructure that makes human judgment scale. Here's what that distinction means in practice.",
+    "body": "## The phrase is everywhere. The meaning is murky.\n\nEvery research team I talk to is either 'exploring AI' or 'going AI-native'. But when I ask what that means concretely, the answers converge on the same thing: using ChatGPT to summarise transcripts faster.\n\nThat's not AI-native research. That's AI-assisted note-taking.\n\n## The distinction that matters\n\nAI-assisted research uses AI to do research tasks faster. AI-native research uses AI to do research tasks that were previously impossible at any speed.\n\nThe difference is architectural, not just instrumental.\n\n- **AI-assisted**: summarise this transcript → faster synthesis\n- **AI-native**: build a knowledge graph across 500 sessions, detect when insight patterns shift, alert researchers to emerging contradictions — continuously, without a human triggering each step\n\n## What it requires\n\nAI-native research requires three things that most teams don't have:\n\n1. **Provenance** — every insight traceable to its source evidence\n2. **Continuity** — research that runs between studies, not just during them\n3. **Human-in-the-loop architecture** — AI that escalates to humans at the right moments, not one that either runs fully autonomously or requires full human direction\n\n## Why I'm building CPR\n\nComputational Product Research is my attempt to define what this infrastructure looks like — and to build the open-source components that make it accessible.\n\nNot because AI should replace researchers. Because the researchers who build with AI will define what research means in 2030.\n\nThe transition is happening whether we shape it or not."
+  }
+]

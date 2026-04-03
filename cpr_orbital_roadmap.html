@@ -2,110 +2,142 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>CPR Orbital Roadmap</title>
+<title>CPR Orbital Roadmap v3</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #fff; color: #222; padding: 24px; max-width: 960px; margin: 0 auto; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+h1 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+.meta { font-size: 12px; color: #888; margin-bottom: 20px; }
+.stats { font-size: 12px; color: #888; padding: 4px 0 12px; }
+.frow { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; align-items: center; }
+.flbl { font-size: 11px; color: #aaa; padding: 0 2px 0 8px; }
+.flbl:first-child { padding-left: 0; }
+.pill { padding: 2px 10px; border-radius: 99px; font-size: 11px; cursor: pointer; border: 0.5px solid #ccc; color: #555; user-select: none; transition: all .15s; line-height: 1.7; background: transparent; font-family: inherit; }
+.pill:hover { color: #222; border-color: #999; }
+.pill.on { background: #222; color: #fff; border-color: transparent; }
+.shdr { display: flex; align-items: baseline; gap: 8px; padding: 13px 0 8px; border-top: 0.5px solid #e5e5e5; flex-wrap: wrap; }
+.snum { font-size: 11px; color: #aaa; }
+.sname { font-size: 13px; font-weight: 500; color: #222; }
+.sdates { font-size: 11px; color: #aaa; }
+.stally { font-size: 11px; color: #aaa; margin-left: auto; }
+.pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.pc { border: 0.5px solid #e5e5e5; border-left-width: 2.5px; border-radius: 6px; padding: 9px 11px; cursor: default; }
+.pc.done { background: #fafff8; }
+.pc.gone { display: none; }
+.r1 { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; flex-wrap: wrap; }
+.wk { font-size: 11px; color: #999; background: #f5f5f5; border: 0.5px solid #e5e5e5; border-radius: 3px; padding: 0 4px; line-height: 1.7; flex-shrink: 0; }
+.pn { font-family: monospace; font-size: 11px; font-weight: 500; color: #222; }
+.qt { font-size: 10px; padding: 0 4px; border-radius: 3px; line-height: 1.7; border: 0.5px solid; }
+.qt-q { background: #e6f1fb; color: #185fa5; border-color: #b5d4f4; }
+.qt-n { background: #faeeda; color: #854f0b; border-color: #fac775; }
+.qt-m { background: #f1efe8; color: #5f5e5a; border-color: #d3d1c7; }
+.pt { font-size: 11px; color: #555; line-height: 1.4; margin-bottom: 5px; }
+.chips { display: flex; gap: 3px; flex-wrap: wrap; }
+.ch { font-size: 11px; padding: 0 5px; border-radius: 3px; line-height: 1.65; }
+.cs { background: #f5f5f5; color: #888; border: 0.5px solid #ddd; }
+.cp { background: #e1f5ee; color: #0f6e56; }
+.ca { background: #e6f1fb; color: #185fa5; }
+.cc { background: #faeeda; color: #854f0b; }
+.cl { background: #faece7; color: #993c1d; }
+@media (max-width: 600px) { .pgrid { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
+<h1>CPR Orbital Roadmap</h1>
+<div class="meta">40 projects · every Friday · Mar 20 – Dec 18, 2026 · Kostas Kazakos</div>
 <div id="app"></div>
 <script>
 const SE = [
-  { id:1, name:"Signal starters",        dates:"Mar 20 – Apr 24", c:"#1D9E75" },
-  { id:2, name:"Synthetic research",      dates:"May 1 – Jun 5",   c:"#7F77DD" },
-  { id:3, name:"Evaluation & benchmarks", dates:"Jun 12 – Jul 17", c:"#BA7517" },
-  { id:4, name:"Research ops",            dates:"Jul 24 – Aug 28", c:"#185FA5" },
-  { id:5, name:"CPR flagship",            dates:"Sep 4 – Oct 9",   c:"#D85A30" },
+  { id:1, name:"Signal starters",         dates:"Mar 20 – Apr 24", c:"#1D9E75" },
+  { id:2, name:"Synthetic & simulation",   dates:"May 1 – Jun 5",   c:"#7F77DD" },
+  { id:3, name:"Evaluation & benchmarks",  dates:"Jun 12 – Jul 17", c:"#BA7517" },
+  { id:4, name:"Research ops",             dates:"Jul 24 – Aug 28", c:"#185FA5" },
+  { id:5, name:"Quant & mixed methods",    dates:"Sep 4 – Oct 9",   c:"#D85A30" },
+  { id:6, name:"Pre-study & impact",       dates:"Oct 16 – Dec 18", c:"#854F0B" },
 ];
-
 const PR = [
-  { n:"transcript-cleaner",       t:"Fixes diarization errors, speaker gaps and messy turn-taking in raw transcripts",       w:"Mar 20 ✓", s:1, st:["CLI"],                 a:["P"] },
-  { n:"uxr-prompt-pack",          t:"Versioned LLM prompt library for UX research tasks, with built-in output evals",        w:"Mar 27",   s:1, st:["CLI","Evals"],           a:["P","AI"] },
-  { n:"qual-sniffer",             t:"Detects methodological weaknesses in discussion guides and research plans",              w:"Apr 3",    s:1, st:["CLI"],                   a:["P"] },
-  { n:"insight-differ",           t:"Compares two research reports and surfaces contradictions, overlaps, and gaps",          w:"Apr 10",   s:1, st:["Streamlit"],             a:["P","LD"] },
-  { n:"affinity-bot",             t:"LLM-powered affinity diagramming directly from raw research notes",                     w:"Apr 17",   s:1, st:["Streamlit"],             a:["P"] },
-  { n:"research-rubric",          t:"Evaluates qualitative research quality across saturation, bias, and evidence dimensions",w:"Apr 24",   s:1, st:["DSPy","Evals"],          a:["AC","P"] },
-  { n:"guide-scorer",             t:"Scores a discussion guide across eight research quality dimensions with rationale",      w:"May 1",    s:2, st:["DSPy"],                  a:["P"] },
-  { n:"saturation-meter",         t:"Estimates thematic saturation from coded transcript data — stop-point guidance",        w:"May 8",    s:2, st:["DSPy"],                  a:["AC"] },
-  { n:"synthetic-participants",   t:"Generates richly profiled synthetic UX research participants with behavioural depth",   w:"May 15",   s:2, st:["LangChain"],             a:["P","AI","AC"] },
-  { n:"persona-forge",            t:"Controlled persona generation with cross-session behavioural consistency validation",   w:"May 22",   s:2, st:["DSPy"],                  a:["AI","P"] },
-  { n:"interview-sim",            t:"Simulates full user interview sessions — participant roleplay, transcript, auto-codes", w:"May 29",   s:2, st:["LangChain","Streamlit"], a:["P"] },
-  { n:"pilot-buddy",              t:"Run synthetic pilot studies before committing to real fieldwork recruitment",            w:"Jun 5",    s:2, st:["DSPy","Streamlit"],       a:["P"] },
-  { n:"say-do-lite",              t:"Lightweight Say-Do Gap detection — no graph database required, runs on any transcript", w:"Jun 12",   s:3, st:["CLI"],                   a:["P","AI","AC","LD"] },
-  { n:"bias-audit",               t:"Detects and categorises interviewer bias patterns across transcript corpora",           w:"Jun 19",   s:3, st:["DSPy"],                  a:["AC","P"] },
-  { n:"uxr-bench",                t:"Benchmark dataset for evaluating LLM performance on qualitative research tasks",        w:"Jun 26",   s:3, st:["Evals"],                 a:["AC","AI"] },
-  { n:"coding-eval",              t:"Measures LLM thematic coding accuracy and agreement against human coders",              w:"Jul 3",    s:3, st:["Evals"],                 a:["AC"] },
-  { n:"recall-probe",             t:"Detects say-do inconsistencies across longitudinal study waves over time",              w:"Jul 10",   s:3, st:["LangChain"],             a:["AC","AI"] },
-  { n:"friction-index",           t:"Open-source competitive UX scoring framework using configurable LLM agents",            w:"Jul 17",   s:3, st:["DSPy","Streamlit"],       a:["LD","P"] },
-  { n:"behavioral-profile",       t:"Models participant behavioural tendencies and contradictions from prior research data", w:"Jul 24",   s:4, st:["DSPy"],                  a:["AI","AC"] },
-  { n:"synthetic-panel",          t:"Manages a persistent, versioned panel of synthetic research participants",              w:"Jul 31",   s:4, st:["Streamlit"],             a:["LD","P"] },
-  { n:"evidence-chain",           t:"Tracks claim-to-evidence provenance chains through layered research reports",           w:"Aug 7",    s:4, st:["LangChain"],             a:["AC","LD"] },
-  { n:"research-radar",           t:"Automated trend monitor delivering weekly domain-specific signals to product researchers",w:"Aug 14",  s:4, st:["LangChain","Streamlit"], a:["P","LD"] },
-  { n:"insight-router",           t:"Routes research insights to the right stakeholders with context and priority signals",  w:"Aug 21",   s:4, st:["LangChain"],             a:["LD"] },
-  { n:"study-planner",            t:"AI-assisted research study scoping, timeline generation, and resource estimation",     w:"Aug 28",   s:4, st:["Streamlit"],             a:["P","LD"] },
-  { n:"co-reasoning-canvas",      t:"Human-AI collaborative sensemaking interface — structured synthesis with provenance",   w:"Sep 4",    s:5, st:["Streamlit"],             a:["P","AC","LD"] },
-  { n:"uxr-arena",                t:"Head-to-head evaluation framework for comparing competing UXR AI tools",                w:"Sep 11",   s:5, st:["Evals"],                 a:["AI","AC"] },
-  { n:"knowledge-graph-engine",   t:"Builds queryable research knowledge graphs from full transcript corpora",               w:"Sep 18",   s:5, st:["LangChain"],             a:["AC","AI"] },
-  { n:"temporal-insight-tracker", t:"Tracks how research insights evolve, drift, and decay across longitudinal study waves", w:"Sep 25",   s:5, st:["LangChain","DSPy"],       a:["LD","AC"] },
-  { n:"cpr-toolkit",              t:"Meta-package bundling the full CPR utility ecosystem — one install, all tools",        w:"Oct 2",    s:5, st:["CLI"],                   a:["P","AI","AC","LD"] },
-  { n:"research-agent",           t:"Autonomous research operations agent — the CPR capstone, end-to-end pipeline",         w:"Oct 9",    s:5, st:["LangChain","DSPy"],       a:["AI","LD"] },
+  { n:"transcript-cleaner",       t:"Fixes diarization errors, speaker gaps and messy turn-taking in raw transcripts",               w:"Mar 20 ✓", s:1, m:"Q", st:["CLI"],                  a:["P"] },
+  { n:"uxr-prompt-pack",          t:"Versioned LLM prompt library for UX research tasks, with built-in output evals",                w:"Mar 27",   s:1, m:"Q", st:["CLI","Evals"],            a:["P","AI"] },
+  { n:"qual-sniffer",             t:"Detects methodological weaknesses in discussion guides and research plans",                      w:"Apr 3",    s:1, m:"Q", st:["CLI"],                  a:["P"] },
+  { n:"survey-cleaner",           t:"Removes speeders, straight-liners and gibberish open-ends from raw survey exports",             w:"Apr 10",   s:1, m:"N", st:["CLI"],                  a:["P","AI"] },
+  { n:"insight-differ",           t:"Compares two research reports and surfaces contradictions, overlaps, and gaps",                  w:"Apr 17",   s:1, m:"Q", st:["Streamlit"],              a:["P","LD"] },
+  { n:"research-rubric",          t:"Evaluates qualitative research quality across saturation, bias, and evidence dimensions",       w:"Apr 24",   s:1, m:"Q", st:["DSPy","Evals"],           a:["AC","P"] },
+  { n:"guide-scorer",             t:"Scores a discussion guide across eight research quality dimensions with rationale",              w:"May 1",    s:2, m:"Q", st:["DSPy"],                 a:["P"] },
+  { n:"saturation-meter",         t:"Estimates thematic saturation from coded transcript data — stop-point guidance",                w:"May 8",    s:2, m:"Q", st:["DSPy"],                 a:["AC"] },
+  { n:"synthetic-participants",   t:"Generates richly profiled synthetic UX research participants with behavioural depth",           w:"May 15",   s:2, m:"Q", st:["LangChain"],              a:["P","AI","AC"] },
+  { n:"persona-forge",            t:"Controlled persona generation with cross-session behavioural consistency validation",           w:"May 22",   s:2, m:"Q", st:["DSPy"],                 a:["AI","P"] },
+  { n:"interview-sim",            t:"Simulates full user interview sessions — participant roleplay, transcript, auto-codes",         w:"May 29",   s:2, m:"Q", st:["LangChain","Streamlit"],  a:["P"] },
+  { n:"stat-narrator",            t:"Translates statistical model outputs into plain-language research narratives",                  w:"Jun 5",    s:2, m:"N", st:["DSPy"],                 a:["P","LD"] },
+  { n:"say-do-lite",              t:"Lightweight Say-Do Gap detection — no graph database required, runs on any transcript",         w:"Jun 12",   s:3, m:"Q", st:["CLI"],                  a:["P","AI","AC","LD"] },
+  { n:"bias-audit",               t:"Detects and categorises interviewer bias patterns across transcript corpora",                   w:"Jun 19",   s:3, m:"Q", st:["DSPy"],                 a:["AC","P"] },
+  { n:"uxr-bench",                t:"Benchmark dataset for evaluating LLM performance on qualitative research tasks",                w:"Jun 26",   s:3, m:"Q", st:["Evals"],                a:["AC","AI"] },
+  { n:"effect-sizer",             t:"Calculates and contextualises effect sizes for research findings with plain-language rationale", w:"Jul 3",    s:3, m:"N", st:["CLI"],                  a:["AC","P"] },
+  { n:"recall-probe",             t:"Detects say-do inconsistencies across longitudinal study waves over time",                      w:"Jul 10",   s:3, m:"Q", st:["LangChain"],              a:["AC","AI"] },
+  { n:"coding-eval",              t:"Measures LLM thematic coding accuracy and agreement rates against human coders",                w:"Jul 17",   s:3, m:"Q", st:["Evals"],                a:["AC"] },
+  { n:"behavioral-profile",       t:"Models participant behavioural tendencies and contradictions from prior research data",         w:"Jul 24",   s:4, m:"M", st:["DSPy"],                 a:["AI","AC"] },
+  { n:"synthetic-panel",          t:"Manages a persistent, versioned panel of synthetic research participants",                      w:"Jul 31",   s:4, m:"Q", st:["Streamlit"],              a:["LD","P"] },
+  { n:"sample-sizer",             t:"AI-assisted sample size calculator with method-aware rationale and power analysis",             w:"Aug 7",    s:4, m:"N", st:["CLI","Streamlit"],        a:["P","AC"] },
+  { n:"research-radar",           t:"Automated trend monitor delivering weekly domain-specific signals to product researchers",      w:"Aug 14",   s:4, m:"M", st:["LangChain","Streamlit"],  a:["P","LD"] },
+  { n:"evidence-chain",           t:"Tracks claim-to-evidence provenance chains through layered research reports",                   w:"Aug 21",   s:4, m:"Q", st:["LangChain"],              a:["AC","LD"] },
+  { n:"study-planner",            t:"AI-assisted research study scoping, timeline generation, and resource estimation",             w:"Aug 28",   s:4, m:"M", st:["Streamlit"],              a:["P","LD"] },
+  { n:"max-diff-analyzer",        t:"LLM-assisted MaxDiff preference analysis — scoring, segmentation, and narrative output",       w:"Sep 4",    s:5, m:"N", st:["DSPy","Streamlit"],       a:["P","AC"] },
+  { n:"nps-dissector",            t:"Deep NPS driver analysis — open-end coding, theme clustering, verbatim segmentation",          w:"Sep 11",   s:5, m:"N", st:["LangChain","Streamlit"],  a:["P","LD"] },
+  { n:"survey-designer",          t:"AI-assisted survey question generation with bias detection and response scale validation",      w:"Sep 18",   s:5, m:"N", st:["DSPy","Streamlit"],       a:["P","AI"] },
+  { n:"quant-qual-bridge",        t:"Links quantitative segments to qualitative insight threads across a mixed-methods corpus",      w:"Sep 25",   s:5, m:"M", st:["LangChain"],              a:["AC","P"] },
+  { n:"segment-finder",           t:"Automated behavioural segmentation from usage and survey data with LLM-generated profiles",    w:"Oct 2",    s:5, m:"N", st:["DSPy","Streamlit"],       a:["AI","P"] },
+  { n:"usability-metrics-kit",    t:"Calculates, benchmarks, and narrates SUS, UMUX, SUPR-Q and related usability scores",         w:"Oct 9",    s:5, m:"N", st:["CLI","Streamlit"],        a:["P","AC"] },
+  { n:"brief-to-questions",       t:"Converts a PM brief or PRD into crisp, answerable, methodologically sound research questions", w:"Oct 16",   s:6, m:"Q", st:["DSPy"],                 a:["P","LD"] },
+  { n:"screener-generator",       t:"Generates recruitment screeners with quota logic and disqualification criteria from a brief",  w:"Oct 23",   s:6, m:"Q", st:["DSPy","Streamlit"],       a:["P"] },
+  { n:"ethics-checker",           t:"Flags consent, IRB, and participant safety considerations for a given study design",           w:"Oct 30",   s:6, m:"Q", st:["CLI"],                  a:["P","AC"] },
+  { n:"affinity-bot",             t:"LLM-powered affinity diagramming and theme clustering directly from raw research notes",       w:"Nov 6",    s:6, m:"Q", st:["Streamlit"],              a:["P"] },
+  { n:"jtbd-extractor",           t:"Pulls Jobs-to-Be-Done statements and underlying motivations from interview transcripts",       w:"Nov 13",   s:6, m:"Q", st:["DSPy","Streamlit"],       a:["P","LD"] },
+  { n:"journey-map-generator",    t:"Scaffolds a journey map with phases, pain points, and emotions from coded research data",      w:"Nov 20",   s:6, m:"M", st:["LangChain","Streamlit"],  a:["P","LD"] },
+  { n:"research-impact-tracker",  t:"Logs which insights influenced product decisions — closes the research-to-impact loop",       w:"Nov 27",   s:6, m:"M", st:["Streamlit"],              a:["LD","AC"] },
+  { n:"stakeholder-brief-writer", t:"Auto-generates a one-page executive summary from a full research report",                     w:"Dec 4",    s:6, m:"Q", st:["DSPy"],                 a:["LD","P"] },
+  { n:"lit-review-assistant",     t:"Summarises relevant HCI and AI papers for a given research topic with citation scaffolding",   w:"Dec 11",   s:6, m:"Q", st:["LangChain"],              a:["AC","AI"] },
+  { n:"cpr-toolkit",              t:"Meta-package bundling the full CPR orbital ecosystem — one install, all 40 tools",            w:"Dec 18",   s:6, m:"M", st:["CLI"],                  a:["P","AI","AC","LD"] },
 ];
-
-const AM = { P:{l:"Practitioners",c:"#1D9E75"}, AI:{l:"AI / ML",c:"#185FA5"}, AC:{l:"Academic",c:"#BA7517"}, LD:{l:"Leadership",c:"#D85A30"} };
-const SL = ["CLI","Streamlit","LangChain","DSPy","Evals"];
-const AL = ["P","AI","AC","LD"];
-const AF = { P:"Practitioners", AI:"AI / ML", AC:"Academic", LD:"Leadership" };
-
-let sA = new Set(), sS = new Set();
-
-function ok(p) {
-  return (sA.size===0||p.a.some(a=>sA.has(a)))&&(sS.size===0||p.st.some(s=>sS.has(s)));
-}
-
-function draw() {
-  const vis = PR.filter(ok);
-  const filtered = sA.size>0||sS.size>0;
-  let h = `<div style="font-size:12px;color:#888;padding:4px 0 12px">${filtered?vis.length+' of '+PR.length+' projects shown':PR.length+' projects · every Friday · Mar 20 – Oct 9, 2026'}</div>`;
-
-  h += `<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;align-items:center">`;
-  h += `<span style="font-size:11px;color:#aaa;padding-right:4px">Audience</span>`;
-  AL.forEach(a=>{h+=`<button onclick="tA('${a}')" style="padding:2px 10px;border-radius:99px;font-size:11px;cursor:pointer;border:0.5px solid ${sA.has(a)?'transparent':'#ccc'};background:${sA.has(a)?'#222':'transparent'};color:${sA.has(a)?'#fff':'#555'};font-family:sans-serif">${AF[a]}</button>`;});
-  h += `<span style="font-size:11px;color:#aaa;padding:0 4px 0 8px">Stack</span>`;
-  SL.forEach(s=>{h+=`<button onclick="tS('${s}')" style="padding:2px 10px;border-radius:99px;font-size:11px;cursor:pointer;border:0.5px solid ${sS.has(s)?'transparent':'#ccc'};background:${sS.has(s)?'#222':'transparent'};color:${sS.has(s)?'#fff':'#555'};font-family:sans-serif">${s}</button>`;});
-  if(filtered) h+=`<button onclick="clr()" style="padding:2px 10px;border-radius:99px;font-size:11px;cursor:pointer;border:0.5px solid #ccc;background:transparent;color:#555;margin-left:6px;font-family:sans-serif">Clear</button>`;
-  h += `</div>`;
-
+const AM={P:{l:"Practitioners",c:"cp"},AI:{l:"AI / ML",c:"ca"},AC:{l:"Academic",c:"cc"},LD:{l:"Leadership",c:"cl"}};
+const SL=["CLI","Streamlit","LangChain","DSPy","Evals"];
+const AL=["P","AI","AC","LD"];
+const MLK=["Q","N","M"];
+const AF={P:"Practitioners",AI:"AI / ML",AC:"Academic",LD:"Leadership"};
+const MF={Q:"Qualitative",N:"Quantitative",M:"Mixed"};
+const MC={Q:"qt-q",N:"qt-n",M:"qt-m"};
+const ML2={Q:"Qual",N:"Quant",M:"Mixed"};
+let sA=new Set(),sS=new Set(),sM=new Set();
+function ok(p){return(sA.size===0||p.a.some(a=>sA.has(a)))&&(sS.size===0||p.st.some(s=>sS.has(s)))&&(sM.size===0||sM.has(p.m));}
+function draw(){
+  const vis=PR.filter(ok);
+  const filtered=sA.size>0||sS.size>0||sM.size>0;
+  const qc=PR.filter(p=>p.m==="Q").length,nc=PR.filter(p=>p.m==="N").length,mc=PR.filter(p=>p.m==="M").length;
+  let h=`<div class="stats">${filtered?vis.length+' of '+PR.length+' projects shown':PR.length+' projects · every Friday · Mar 20 – Dec 18, 2026 · '+qc+' qual / '+nc+' quant / '+mc+' mixed'}</div>`;
+  h+=`<div class="frow"><span class="flbl">Method</span>`;
+  MLK.forEach(m=>{h+=`<button class="pill${sM.has(m)?' on':''}" onclick="tM('${m}')">${MF[m]}</button>`;});
+  h+=`<span class="flbl">Audience</span>`;
+  AL.forEach(a=>{h+=`<button class="pill${sA.has(a)?' on':''}" onclick="tA('${a}')">${AF[a]}</button>`;});
+  h+=`<span class="flbl">Stack</span>`;
+  SL.forEach(s=>{h+=`<button class="pill${sS.has(s)?' on':''}" onclick="tS('${s}')">${s}</button>`;});
+  if(filtered)h+=`<button class="pill" style="margin-left:6px" onclick="clr()">Clear</button>`;
+  h+=`</div>`;
   SE.forEach(se=>{
-    const sp=PR.filter(p=>p.s===se.id);
-    const sv=sp.filter(ok);
+    const sp=PR.filter(p=>p.s===se.id),sv=sp.filter(ok);
     if(filtered&&sv.length===0)return;
-    h+=`<div><div style="display:flex;align-items:baseline;gap:8px;padding:13px 0 8px;border-top:0.5px solid #e5e5e5;flex-wrap:wrap">
-      <span style="font-size:11px;color:#aaa">S${se.id}</span>
-      <span style="font-size:13px;font-weight:500;color:#222">${se.name}</span>
-      <span style="font-size:11px;color:#aaa">${se.dates}</span>
-      <span style="font-size:11px;color:#aaa;margin-left:auto">${filtered?sv.length+'/'+sp.length:sp.length+' projects'}</span>
-    </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">`;
+    h+=`<div><div class="shdr"><span class="snum">S${se.id}</span><span class="sname">${se.name}</span><span class="sdates">${se.dates}</span><span class="stally">${filtered?sv.length+'/'+sp.length:sp.length+' projects'}</span></div><div class="pgrid">`;
     sp.forEach(p=>{
-      if(!ok(p)){h+=`<div style="display:none"></div>`;return;}
-      const sc=p.st.map(s=>`<span style="font-size:11px;padding:0 5px;border-radius:3px;line-height:1.65;background:#f0f0f0;color:#666;border:0.5px solid #ddd">${s}</span>`).join('');
-      const ac=p.a.map(a=>`<span style="font-size:11px;padding:0 5px;border-radius:3px;line-height:1.65;background:${AM[a].c}18;color:${AM[a].c}">${AM[a].l}</span>`).join('');
+      const sc=p.st.map(s=>`<span class="ch cs">${s}</span>`).join('');
+      const ac=p.a.map(a=>`<span class="ch ${AM[a].c}">${AM[a].l}</span>`).join('');
       const done=p.w.includes('✓');
-      h+=`<div style="border:0.5px solid #e5e5e5;border-left:2.5px solid ${se.c};border-radius:6px;padding:9px 11px;background:${done?'#fafff8':'white'}">
-        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px;flex-wrap:wrap">
-          <span style="font-size:11px;color:#999;background:#f5f5f5;border:0.5px solid #e5e5e5;border-radius:3px;padding:0 4px;line-height:1.7">${p.w}</span>
-          <span style="font-family:monospace;font-size:11px;font-weight:500;color:#222">${p.n}</span>
-        </div>
-        <div style="font-size:11px;color:#555;line-height:1.4;margin-bottom:5px">${p.t}</div>
-        <div style="display:flex;gap:3px;flex-wrap:wrap">${sc}${ac}</div>
-      </div>`;
+      h+=`<div class="pc${done?' done':''}${ok(p)?'':' gone'}" style="border-left-color:${se.c}"><div class="r1"><span class="wk">${p.w}</span><span class="pn">${p.n}</span><span class="qt ${MC[p.m]}">${ML2[p.m]}</span></div><div class="pt">${p.t}</div><div class="chips">${sc}${ac}</div></div>`;
     });
     h+=`</div></div>`;
   });
-
   document.getElementById('app').innerHTML=h;
 }
-
 function tA(a){sA.has(a)?sA.delete(a):sA.add(a);draw();}
 function tS(s){sS.has(s)?sS.delete(s):sS.add(s);draw();}
-function clr(){sA.clear();sS.clear();draw();}
-
+function tM(m){sM.has(m)?sM.delete(m):sM.add(m);draw();}
+function clr(){sA.clear();sS.clear();sM.clear();draw();}
 draw();
 </script>
 </body>

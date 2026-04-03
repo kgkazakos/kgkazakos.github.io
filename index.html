@@ -222,6 +222,7 @@ footer { padding: 40px 0; display: flex; align-items: center; justify-content: s
       <a href="#cpr">CPR</a>
       <a href="#projects">Projects</a>
       <a href="#publications">Publications</a>
+      <a href="posts/index.html">Writing</a>
       <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </nav>
@@ -235,7 +236,7 @@ footer { padding: 40px 0; display: flex; align-items: center; justify-content: s
     <div class="hero-links fade-in">
       <a href="https://github.com/kgkazakos" target="_blank" rel="noopener" class="btn btn-primary">github.com/kgkazakos</a>
       <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
-      <a href="mailto:kgkazakos@gmail.com" class="btn btn-ghost">Contact</a>
+      <a href="/cdn-cgi/l/email-protection#aec5c9c5cfd4cfc5c1ddeec9c3cfc7c280cdc1c3" class="btn btn-ghost">Contact</a>
     </div>
   </div>
 
@@ -319,13 +320,16 @@ footer { padding: 40px 0; display: flex; align-items: center; justify-content: s
       <span class="stack-pill highlight">Python</span>
       <span class="stack-pill highlight">LangChain</span>
       <span class="stack-pill highlight">DSPy</span>
+      <span class="stack-pill highlight">LangGraph</span>
+      <span class="stack-pill highlight">Neo4j</span>
+      <span class="stack-pill highlight">NetworkX</span>
       <span class="stack-pill">Streamlit</span>
       <span class="stack-pill">Gemini</span>
       <span class="stack-pill">Claude (Anthropic)</span>
       <span class="stack-pill">OpenAI</span>
-      <span class="stack-pill highlight">Neo4j</span>
-      <span class="stack-pill">LangGraph</span>
-      <span class="stack-pill">Click CLI</span>
+      <span class="stack-pill">Pandas</span>
+      <span class="stack-pill">SciPy</span>
+      <span class="stack-pill">Click</span>
       <span class="stack-pill">pytest</span>
       <span class="stack-pill">GitHub Actions</span>
     </div>
@@ -333,18 +337,18 @@ footer { padding: 40px 0; display: flex; align-items: center; justify-content: s
 
   <footer>
     <div class="footer-left">
-      Kostas Kazakos · Melbourne, AU · <span>kgkazakos@gmail.com</span>
+      Kostas Kazakos · Melbourne, AU · <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660d010d071c070d091526010b070f0a4805090b">[email&#160;protected]</a></span>
     </div>
     <div class="footer-links">
       <a href="https://github.com/kgkazakos" target="_blank" rel="noopener">GitHub</a>
       <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:kgkazakos@gmail.com">Email</a>
+      <a href="/cdn-cgi/l/email-protection#2d464a464c574c46425e6d4a404c4441034e4240">Email</a>
     </div>
   </footer>
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const CORE_REPOS_LIST = ['causaltrack', 'synthetic-user-council', 'co-reasoning-canvas', 'constitutional-research-ai', 'autonomous-research-agent'];
 
 const FALLBACK_REPOS = [
@@ -401,13 +405,4 @@ function renderRepos(repos) {
 }
 
 function filterRepos(type, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const filtered = type === 'all' ? allRepos : type === 'cpr' ? allRepos.filter(r => isCore(r.name)) : allRepos.filter(r => !isCore(r.name));
-  renderRepos(filtered);
-}
-
-loadRepos();
-</script>
-</body>
-</html>
+  document.qu
