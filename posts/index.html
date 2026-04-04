@@ -22,6 +22,8 @@ nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-be
 .nav-links{display:flex;gap:24px;}
 .nav-links a{font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--muted);letter-spacing:0.04em;transition:color 0.2s;}
 .nav-links a:hover,.nav-links a.active{color:var(--text);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:101;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--muted);transition:all 0.2s;}
 .page-header{padding:56px 0 32px;border-bottom:1px solid var(--border);}
 .page-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .page-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--teal);}
@@ -60,14 +62,25 @@ footer{padding:40px 0;display:flex;align-items:center;justify-content:space-betw
 .footer-links{display:flex;gap:20px;}
 .footer-links a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);transition:color 0.2s;}
 .footer-links a:hover{color:var(--text);}
-@media(max-width:640px){.nav-links{display:none;}.post-row{grid-template-columns:1fr;gap:8px;}.post-season{display:none;}.filter-bar{gap:6px;}}
+@media(max-width:640px){
+  .post-row{grid-template-columns:1fr;gap:8px;}
+  .post-season{display:none;}
+  .filter-bar{gap:6px;}
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg2);flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:100;}
+  .nav-links.open{display:flex;}
+  .nav-links a{font-size:18px;}
+  .hamburger{display:flex;}
+}
 </style>
 </head>
 <body>
 <div class="container">
   <nav>
     <a href="../index.html" class="nav-logo">kgkazakos<span>.github.io</span></a>
-    <div class="nav-links">
+    <div class="hamburger" onclick="toggleNav()" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links" id="nav-links">
       <a href="../index.html#cpr">CPR</a>
       <a href="../index.html#projects">Projects</a>
       <a href="index.html" class="active">Writing</a>
@@ -99,16 +112,16 @@ footer{padding:40px 0;display:flex;align-items:center;justify-content:space-betw
   <div id="posts-list"></div>
 
   <footer>
-    <div class="footer-left">Kostas Kazakos · Melbourne, AU · <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9b2beb2b8a3b8b2b6aa99beb4b8b0b5f7bab6b4">[email&#160;protected]</a></span></div>
+    <div class="footer-left">Kostas Kazakos · Melbourne, AU · <span>kgkazakos@gmail.com</span></div>
     <div class="footer-links">
       <a href="https://github.com/kgkazakos" target="_blank" rel="noopener">GitHub</a>
       <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="/cdn-cgi/l/email-protection#6e0509050f140f05011d2e09030f0702400d0103">Email</a>
+      <a href="mailto:kgkazakos@gmail.com">Email</a>
     </div>
   </footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const SEASON_LABEL={1:'S1 · Signal starters',2:'S2 · Synthetic & simulation',3:'S3 · Evaluation & benchmarks',4:'S4 · Research ops',5:'S5 · Quant & mixed methods',6:'S6 · Pre-study & impact'};
 let posts=[], activeType='all', activeTag=null;
 
@@ -141,22 +154,17 @@ function setTag(tag,btn){
 
 function renderPosts(list){
   const el=document.getElementById('posts-list');
-  if(!list.length){el.innerHTML=`<div class="empty">No posts yet.</div>`;return;}
-  el.innerHTML=list.map((p,i)=>`
-    <div class="post-row" data-type="${p.type}" data-tags="${p.tags.join(',')}">
-      <div class="post-left">
-        <span class="post-date">${formatDate(p.date)}</span>
-        <span class="type-badge ${p.type}">${p.type==='orbital'?'Orbital tool':'Writing'}</span>
-      </div>
-      <div class="post-content">
-        <a href="post.html?slug=${p.slug}" class="post-title">${p.title}</a>
-        <div class="post-tldr">${p.tldr}</div>
-        <div class="post-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-      </div>
-      <div class="post-season">${p.season?SEASON_LABEL[p.season]:''}</div>
-    </div>
-  `).join('');
+  if(!list.length){el.innerHTML='<div class="empty">No posts yet.</div>';return;}
+  el.innerHTML=list.map(p=>'<div class="post-row" data-type="'+p.type+'" data-tags="'+p.tags.join(',')+'"><div class="post-left"><span class="post-date">'+formatDate(p.date)+'</span><span class="type-badge '+p.type+'">'+(p.type==='orbital'?'Orbital tool':'Writing')+'</span></div><div class="post-content"><a href="post.html?slug='+p.slug+'" class="post-title">'+p.title+'</a><div class="post-tldr">'+p.tldr+'</div><div class="post-tags">'+p.tags.map(t=>'<span class="tag">'+t+'</span>').join('')+'</div></div><div class="post-season">'+(p.season?SEASON_LABEL[p.season]:'')+'</div></div>').join('');
   document.getElementById('post-count').textContent=list.length+' of '+list.length+' posts';
 }
 
-fetch
+fetch('posts.json')
+  .then(r=>r.json())
+  .then(data=>{posts=data.sort((a,b)=>new Date(b.date)-new Date(a.date));renderPosts(posts);})
+  .catch(()=>{document.getElementById('posts-list').innerHTML='<div class="empty">Could not load posts.</div>';});
+
+function toggleNav(){document.getElementById('nav-links').classList.toggle('open');}
+</script>
+</body>
+</html>

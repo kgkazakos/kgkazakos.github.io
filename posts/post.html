@@ -7,15 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#080810; --bg2:#0f0f1a; --bg3:#16162a;
-  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
-  --text:#e8e6f0; --muted:#8a88a0;
-  --teal:#1D9E75; --teal2:#5DCAA5;
-  --purple:#7F77DD; --purple2:#AFA9EC;
-  --amber:#BA7517; --amber2:#EF9F27;
-  --code-bg:#0d0d1f;
-}
+:root{--bg:#080810;--bg2:#0f0f1a;--bg3:#16162a;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#e8e6f0;--muted:#8a88a0;--teal:#1D9E75;--teal2:#5DCAA5;--purple:#7F77DD;--purple2:#AFA9EC;--amber:#BA7517;--amber2:#EF9F27;--code-bg:#0d0d1f;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
@@ -29,7 +21,8 @@ nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-be
 .nav-links{display:flex;gap:24px;}
 .nav-links a{font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--muted);letter-spacing:0.04em;transition:color 0.2s;}
 .nav-links a:hover,.nav-links a.active{color:var(--text);}
-
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:101;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--muted);transition:all 0.2s;}
 .post-header{padding:56px 0 40px;border-bottom:1px solid var(--border);}
 .back-link{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;transition:color 0.2s;}
 .back-link:hover{color:var(--teal2);}
@@ -43,7 +36,6 @@ nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-be
 .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--muted);}
 .repo-link{display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px 16px;border-radius:4px;background:var(--teal);color:#fff;border:1px solid var(--teal);transition:all 0.2s;}
 .repo-link:hover{background:var(--teal2);color:#0a0a0f;}
-
 .post-body{padding:48px 0 64px;}
 .post-body h2{font-family:'Instrument Serif',serif;font-size:26px;font-weight:400;color:var(--text);margin:36px 0 14px;line-height:1.2;}
 .post-body h3{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:var(--teal2);margin:28px 0 10px;letter-spacing:0.04em;}
@@ -59,14 +51,12 @@ nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-be
 .post-body hr{border:none;border-top:1px solid var(--border);margin:36px 0;}
 .post-body a{color:var(--teal2);border-bottom:1px solid rgba(93,202,165,0.3);transition:border-color 0.2s;}
 .post-body a:hover{border-color:var(--teal2);}
-
 .post-nav{display:flex;justify-content:space-between;gap:16px;padding:32px 0;border-top:1px solid var(--border);}
 .post-nav a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);transition:color 0.2s;max-width:45%;}
 .post-nav a:hover{color:var(--teal2);}
-.post-nav .prev::before{content:'← ';}
-.post-nav .next::after{content:' →';}
+.post-nav .prev::before{content:'<- ';}
+.post-nav .next::after{content:' ->';}
 .post-nav .next{text-align:right;margin-left:auto;}
-
 footer{padding:40px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--border);}
 .footer-left{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);}
 .footer-left span{color:var(--teal);}
@@ -76,14 +66,24 @@ footer{padding:40px 0;display:flex;align-items:center;justify-content:space-betw
 .not-found{padding:80px 0;text-align:center;}
 .not-found h2{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);margin-bottom:12px;}
 .not-found a{color:var(--teal2);}
-@media(max-width:600px){.nav-links{display:none;}.post-nav{flex-direction:column;}.post-nav .next{text-align:left;margin-left:0;}}
+@media(max-width:600px){
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg2);flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:100;}
+  .nav-links.open{display:flex;}
+  .nav-links a{font-size:18px;}
+  .hamburger{display:flex;}
+  .post-nav{flex-direction:column;}
+  .post-nav .next{text-align:left;margin-left:0;}
+}
 </style>
 </head>
 <body>
 <div class="container">
   <nav>
     <a href="../index.html" class="nav-logo">kgkazakos<span>.github.io</span></a>
-    <div class="nav-links">
+    <div class="hamburger" onclick="toggleNav()" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links" id="nav-links">
       <a href="../index.html#cpr">CPR</a>
       <a href="../index.html#projects">Projects</a>
       <a href="index.html" class="active">Writing</a>
@@ -96,85 +96,73 @@ footer{padding:40px 0;display:flex;align-items:center;justify-content:space-betw
   <div id="post-nav" class="post-nav"></div>
 
   <footer>
-    <div class="footer-left">Kostas Kazakos · Melbourne, AU · <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8de6eae6ecf7ece6e2fecdeae0ece4e1a3eee2e0">[email&#160;protected]</a></span></div>
+    <div class="footer-left">Kostas Kazakos · Melbourne, AU · <span>kgkazakos@gmail.com</span></div>
     <div class="footer-links">
       <a href="https://github.com/kgkazakos" target="_blank" rel="noopener">GitHub</a>
       <a href="https://linkedin.com/in/kazakosk" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="/cdn-cgi/l/email-protection#711a161a100b101a1e0231161c10181d5f121e1c">Email</a>
+      <a href="mailto:kgkazakos@gmail.com">Email</a>
     </div>
   </footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const SEASON_LABEL = {
-  1:'S1 · Signal starters', 2:'S2 · Synthetic & simulation',
-  3:'S3 · Evaluation & benchmarks', 4:'S4 · Research ops',
-  5:'S5 · Quant & mixed methods', 6:'S6 · Pre-study & impact'
-};
+<script>
+const SEASON_LABEL={1:'S1 · Signal starters',2:'S2 · Synthetic & simulation',3:'S3 · Evaluation & benchmarks',4:'S4 · Research ops',5:'S5 · Quant & mixed methods',6:'S6 · Pre-study & impact'};
 
-function formatDate(d) {
-  return new Date(d).toLocaleDateString('en-AU', {day:'numeric', month:'long', year:'numeric'});
-}
+function formatDate(d){return new Date(d).toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'});}
 
-function mdToHtml(md) {
+function mdToHtml(md){
   return md
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^---$/gm, '<hr>')
-    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
-    .replace(/^- \*\*(.+?)\*\* — (.+)$/gm, '<li><strong>$1</strong> — $2</li>')
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/^(\d+)\. \*\*(.+?)\*\* — (.+)$/gm, '<li><strong>$2</strong> — $3</li>')
-    .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
-    .replace(/(<li>.*<\/li>\n?)+/g, m => `<ul>${m}</ul>`)
-    .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
-    .replace(/^(?!<[hupbco]|<li|<hr|<pre|<blockquote)(.+)$/gm, '<p>$1</p>')
-    .replace(/<p><\/p>/g, '')
-    .replace(/\n{2,}/g, '');
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^---$/gm,'<hr>')
+    .replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>')
+    .replace(/```[\w]*\n([\s\S]*?)```/g,'<pre><code>$1</code></pre>')
+    .replace(/`([^`]+)`/g,'<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/^(\d+)\. (.+)$/gm,'<li>$2</li>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>')
+    .replace(/(<li>[\s\S]+?<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>')
+    .replace(/^(?!<[huplbco]|<hr|<pre|<blockquote)(.+)$/gm,'<p>$1</p>')
+    .replace(/<p><\/p>/g,'');
 }
 
 const slug = new URLSearchParams(window.location.search).get('slug');
-
-if (!slug) {
-  window.location.href = 'index.html';
-}
+if (!slug) window.location.href = 'index.html';
 
 fetch('posts.json')
-  .then(r => r.json())
-  .then(posts => {
-    const sorted = posts.sort((a,b) => new Date(b.date) - new Date(a.date));
-    const idx = sorted.findIndex(p => p.slug === slug);
-    const post = sorted[idx];
-
-    if (!post) {
-      document.getElementById('post-header').innerHTML = `<div class="not-found"><h2>Post not found.</h2><a href="index.html">← Back to writing</a></div>`;
+  .then(r=>r.json())
+  .then(posts=>{
+    const sorted=posts.sort((a,b)=>new Date(b.date)-new Date(a.date));
+    const idx=sorted.findIndex(p=>p.slug===slug);
+    const post=sorted[idx];
+    if(!post){
+      document.getElementById('post-header').innerHTML='<div class="not-found"><h2>Post not found.</h2><a href="index.html">Back to writing</a></div>';
       return;
     }
+    document.title=post.title+' — Kostas Kazakos';
+    const repoBtn=post.repo?'<a href="'+post.repo+'" target="_blank" rel="noopener" class="repo-link">View on GitHub</a>':'';
+    const seasonBadge=post.season?'<span class="post-season-badge">'+SEASON_LABEL[post.season]+'</span>':'';
+    document.getElementById('post-header').innerHTML=
+      '<a href="index.html" class="back-link">Back to writing</a>'
+      +'<div class="post-meta"><span class="post-date-badge">'+formatDate(post.date)+'</span>'+seasonBadge+'</div>'
+      +'<h1>'+post.title+'</h1>'
+      +'<div class="post-tldr-box"><strong>tl;dr</strong> — '+post.tldr+'</div>'
+      +'<div class="post-tags">'+post.tags.map(t=>'<span class="tag">'+t+'</span>').join('')+'</div>'
+      +repoBtn;
+    document.getElementById('post-body').innerHTML=mdToHtml(post.body);
+    const prev=sorted[idx+1];
+    const next=sorted[idx-1];
+    document.getElementById('post-nav').innerHTML=
+      (prev?'<a href="post.html?slug='+prev.slug+'" class="prev">'+prev.title+'</a>':'<span></span>')
+      +(next?'<a href="post.html?slug='+next.slug+'" class="next">'+next.title+'</a>':'');
+  })
+  .catch(()=>{
+    document.getElementById('post-header').innerHTML='<div class="not-found"><h2>Could not load post.</h2><a href="index.html">Back to writing</a></div>';
+  });
 
-    document.title = `${post.title} — Kostas Kazakos`;
-
-    const repoBtn = post.repo ? `<a href="${post.repo}" target="_blank" rel="noopener" class="repo-link">View on GitHub →</a>` : '';
-
-    document.getElementById('post-header').innerHTML = `
-      <a href="index.html" class="back-link">← All posts</a>
-      <div class="post-meta">
-        <span class="post-date-badge">${formatDate(post.date)}</span>
-        <span class="post-season-badge">${SEASON_LABEL[post.season] || ''}</span>
-      </div>
-      <h1>${post.title}</h1>
-      <div class="post-tldr-box"><strong>tl;dr</strong> — ${post.tldr}</div>
-      <div class="post-tags">${post.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-      ${repoBtn}
-    `;
-
-    document.getElementById('post-body').innerHTML = mdToHtml(post.body);
-
-    const prev = sorted[idx + 1];
-    const next = sorted[idx - 1];
-    document.getElementById('post-nav').innerHTML = `
-      ${prev ? `<a href="post.html?slug=${prev.slug}" class="prev">${prev.title}</a>` : '<span></span>'}
-      ${next ? `<a href="post.html?slug=${
+function toggleNav(){document.getElementById('nav-links').classList.toggle('open');}
+</script>
+</body>
+</html>
