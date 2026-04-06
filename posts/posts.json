@@ -1,26 +1,238 @@
 [
   {
-    "slug": "transcript-cleaner",
-    "title": "transcript-cleaner: fixing the unglamorous problem every UX researcher ignores",
-    "date": "2026-03-20",
+    "slug": "insight-differ",
+    "title": "Insight Differ: comparing two research reports automatically",
+    "date": "2026-04-03",
     "type": "orbital",
     "season": 1,
-    "tool": "transcript-cleaner",
-    "repo": "https://github.com/kgkazakos/transcript-cleaner",
-    "tags": ["qualitative", "cli", "open-source", "orbital-s1"],
-    "tldr": "A Python tool that fixes messy interview transcripts in seconds — speaker labels, filler words, fragmented turns, broken timestamps. Rule-based by default, LLM-powered when you need it.",
-    "body": "## The problem nobody talks about\n\nAfter every user interview, researchers lose 1–2 hours fixing what the auto-transcriber broke. Speaker labels that don't match. Filler words everywhere. Three-word fragments that should be one turn. Timestamps in five different formats.\n\nIt's not glamorous. But it's the kind of friction that quietly kills research momentum — especially when you're running 10+ sessions.\n\n\"But doesn't Zoom / Otter / Dovetail handle that?\"\n\nThey handle **transcription**. That's a different layer. They convert audio to text. `transcript-cleaner` fixes what they produce.\n\n## What it does\n\nFive operations, in order:\n\n1. **Fix speaker label inconsistencies** — fuzzy matching clusters `Kostas K`, `K Kazakos`, and `interviewer` into a single canonical label. LLM fallback for genuinely ambiguous cases.\n2. **Fill unlabelled turns** — heuristic continuation for short turns, LLM inference for longer ambiguous ones.\n3. **Remove filler words** — regex pipeline strips `um`, `uh`, `like`, `you know`, `sort of`, `basically` and cleans up spacing.\n4. **Merge fragmented short turns** — consecutive same-speaker turns under 3 words get merged.\n5. **Normalise timestamps** — converts any format (`00:01:23.456`, `1:23`, `83` seconds) to clean `HH:MM:SS`.\n\n## Model-agnostic by design\n\nNo API key required for the core pipeline. Plug in Claude, GPT-4o, or Gemini only when you need the smarter inference.\n\n## Part of the CPR Orbital Ecosystem\n\nThis is the first of 40 orbital tools I'm shipping every Friday through December 2026.\n\n```bash\npip install transcript-cleaner[cli]\ntranscript-cleaner clean my_interview.txt\n```"
+    "tool": "insight-differ",
+    "repo": "https://github.com/kgkazakos/insight-differ",
+    "tags": [
+      "qualitative",
+      "streamlit",
+      "open-source",
+      "orbital-s1"
+    ],
+    "tldr": "insight-differ extracts segments from two research reports, scores their similarity with TF-IDF, then flags overlaps, contradictions, and gaps — with an optional LLM narrative layer.",
+    "body": "## The problem\n\nTwo research reports. Same product. Six months apart.\n\nDo they agree? Contradict each other? Is one covering ground the other ignores entirely?\n\nReading both reports and writing a comparison matrix can take time. Miss a contradiction, and you've shipped a product decision on conflicting evidence.\n\nSo I built insight-differ — Tool 5 of my CPR Orbital series.\n\n## What it does\n\n- Extracts segments from two research reports (paragraphs, sentences, bullets)\n- Maps a TF-IDF similarity matrix — mathematically scoring how important specific terms are across both texts to find semantic matches\n- Flags **overlaps** — segments making the same claim across both reports\n- Flags **contradictions** — segments on the same topic where one says \"not\", \"never\", or \"contrary to\" what the other asserts\n- Flags **gaps** — findings in one report with no counterpart in the other\n- Outputs structured JSON so you can pipe results straight into your team's existing workflows or CI pipelines\n- Adds an optional LLM narrative layer (OpenAI / Anthropic / Gemini) for methodological synthesis\n\n## The obvious objection\n\nCan you really detect contradictions without semantic understanding?\n\nPartly. Rule-based negation scoring (contrast phrases, negation words, asymmetric negation patterns) catches the clearest cases. The LLM backend handles the nuanced ones. The rule-based core is what makes it auditable.\n\nComes with a Streamlit app — paste both reports, adjust thresholds in the sidebar, and explore results across tabs."
   },
   {
-    "slug": "what-ai-native-research-actually-means",
-    "title": "What AI-native research actually means — and what it doesn't",
-    "date": "2026-03-19",
+    "slug": "before-you-ship-agentic-trust-line",
+    "title": "Before you ship an agentic feature, there's one question worth sitting with",
+    "date": "2026-03-31",
+    "type": "general",
+    "season": null,
+    "tool": null,
+    "repo": "https://trust-line-theta.vercel.app",
+    "tags": [
+      "ai-native",
+      "ux-research",
+      "computational-product-research",
+      "agentic"
+    ],
+    "tldr": "Most teams answer the 'when should the agent act vs check in?' question through beta feedback. trust-line is an attempt to answer it earlier — using archetype simulation to generate an Intervention Boundary specification before a line of production code is written.",
+    "body": "## The question most teams can't answer cleanly\n\nThere's a moment most UX/product teams recognise, usually a few weeks before launch.\n\nThe feature is ready. The engineering is solid. The product logic makes sense. And then someone in the room asks:\n\n*How do we know when the agent should act quietly, and when it should check in first?*\n\nMost of the time, there's no clean answer. Teams drift toward one of two places:\n\n- They add confirmation steps everywhere, and the feature feels like more work than doing it yourself.\n- Or they let the agent act freely, and at some point it does something a user wasn't ready for — and trust quietly disappears.\n\n## Why this question is harder than it sounds\n\nThe tools we reach for — surveys, usability studies, interviews — are excellent at what they do. They're built for interaction patterns that exist: flows you can show someone, screens you can react to.\n\nAgentic features are a different kind of problem. What you're trying to understand isn't a screen. It's a decision the agent makes on the user's behalf — sometimes in the background, sometimes while the user isn't even looking.\n\n## What trust-line does\n\ntrust-line is a Computational Prototyping tool. You describe a feature scenario — what the agent handles autonomously, what triggers a check-in, and the context it operates in. The tool then simulates how five user archetypes respond across the Identity Control vs Agent Autonomy spectrum, and generates an **Intervention Boundary** specification: a structured design brief that maps exactly when the agent should act silently, when it should notify, and when it should pause and ask.\n\nThe five archetypes: Autonomous Delegator, Convenience Maximiser, Supervised Controller, Privacy Sceptic, Risk Avoider.\n\n## A worked example: Predictive Transit Funding in Southeast Asia\n\nScenario: An agent automatically tops up a transit wallet when the balance falls below a threshold. Context: Southeast Asia, commuter populations, transit cards used 2–5× daily.\n\nTrust Line scores: Autonomous Delegator 90, Convenience Maximiser 85, Supervised Controller 45, Risk Avoider 15, Privacy Sceptic 10.\n\n**Spread: 80 points.** That spread is the most important number. An 80-point spread means the user base is genuinely divided. A single default interaction pattern won't work for everyone.\n\nThe model suggested **Notify and Proceed** as the most defensible default — the agent acts without interrupting the commute, and the user sees what happened immediately after.\n\nThe design brief also surfaced two edge cases worth testing before launch: mid-journey insufficient funds causing gate rejection, and multiple automated top-ups within 12 hours triggering anomaly thresholds. Both are the kind of scenario that typically shows up in a post-launch incident review. Here, they came up in a 90-second simulation.\n\n## The distinction that matters\n\nTraditional research produces insights. Computational Prototyping produces specifications.\n\nA finding says: *users in this context are ambivalent about autonomous agents.* A specification says: *for this archetype, act silently when X, notify when Y, and pause for confirmation when Z.* One opens a conversation. The other closes an open question for the team.\n\nTry it live at [trust-line-theta.vercel.app](https://trust-line-theta.vercel.app)"
+  },
+  {
+    "slug": "beyond-p-value-four-quant-tools",
+    "title": "Beyond p=0.049: four quant tools for every product researcher",
+    "date": "2026-03-30",
+    "type": "orbital",
+    "season": 1,
+    "tool": null,
+    "repo": null,
+    "tags": [
+      "quantitative",
+      "cli",
+      "open-source",
+      "orbital-s1"
+    ],
+    "tldr": "Four bonus quant tools for the CPR Orbital series: bayes-ab (Bayesian A/B testing), regression-diagnostics (OLS assumption checking), scale-validator (Cronbach's alpha + factor analysis), and power-analyst (sample size + power curves).",
+    "body": "## A gap I couldn't ignore\n\nFor the past few months I've been building the CPR Orbital series — 40+ tools for the AI-native product researcher. But as I looked at the roadmap, I kept hitting a glaring gap: plenty of qualitative infrastructure, almost no hardcore quantitative methods.\n\nI spent a week filling that gap. Here are four bonus tools (4.6–4.9).\n\n## Tool 4.6 — bayes-ab\n\nMost A/B testing is still done with p-values and a nervous glance at \"statistical significance.\" But a p-value doesn't tell you the probability that version B is better.\n\n`bayes-ab` uses a Beta-Binomial conjugate model for conversion metrics and a Normal-Normal model for continuous ones. Instead of a single number, you get posterior distributions, credible intervals, and a ROPE-based decision rule.\n\nNo more \"p=0.049, ship it.\"\n\n```bash\nbayes-ab binary --control-n 1000 --control-successes 87 --treatment-n 1000 --treatment-successes 112\n```\n\nGitHub: [kgkazakos/bayes-ab](https://github.com/kgkazakos/bayes-ab)\n\n## Tool 4.7 — regression-diagnostics\n\nSurvey and behavioral data violate OLS assumptions constantly. `regression-diagnostics` runs four critical tests automatically: Shapiro-Wilk, Breusch-Pagan, Durbin-Watson, and residual-fitted correlation. It also flags influential observations using Cook's distance and multicollinearity via VIF.\n\n```bash\nregression-diagnostics check data.csv --outcome nps_score --predictors \"tenure,feature_usage,support_contacts\"\n```\n\nGitHub: [kgkazakos/regression-diagnostics](https://github.com/kgkazakos/regression-diagnostics)\n\n## Tool 4.8 — scale-validator\n\nBefore reporting findings from a Likert scale, you need to know if it's actually measuring one underlying construct. `scale-validator` computes Cronbach's alpha, identifies items dragging consistency down, and provides eigenvalue-based factor retention guidance.\n\n```bash\nscale-validator validate survey.csv --items \"q1,q2,q3,q4,q5,q6\" --scale-name \"trust_scale\"\n```\n\nGitHub: [kgkazakos/scale-validator](https://github.com/kgkazakos/scale-validator)\n\n## Tool 4.9 — power-analyst\n\n\"How many participants do I need?\" usually gets the answer \"around 30.\" `power-analyst` solves for sample size or achieved power across four test types and generates a full power curve so you can see exactly where the knee is.\n\n```bash\npower-analyst proportion --p1 0.05 --p2 0.08 --power 0.90\n```\n\nGitHub: [kgkazakos/power-analyst](https://github.com/kgkazakos/power-analyst)\n\n## The shared architecture\n\nAll four tools follow the same design philosophy: rule-based core (math happens locally, no API calls), optional LLM narrative layer for stakeholder communication, CI/CD ready JSON output, and fully tested (87 passing tests across the four tools).\n\nThese sit outside the official 40-tool schedule as bonus tools 4.6–4.9."
+  },
+  {
+    "slug": "survey-cleaner",
+    "title": "survey-cleaner: automatically flagging low-quality survey responses",
+    "date": "2026-03-31",
+    "type": "orbital",
+    "season": 1,
+    "tool": "survey-cleaner",
+    "repo": "https://github.com/kgkazakos/survey-cleaner",
+    "tags": [
+      "quantitative",
+      "cli",
+      "open-source",
+      "orbital-s1"
+    ],
+    "tldr": "A Python CLI that automatically flags speeders, straight-liners, pattern-liners, and gibberish open-ends in raw survey exports — rule-based by default, with optional LLM analysis for open-ends.",
+    "body": "## The problem\n\nRaw survey data is often messy, with speeders, straight-liners, pattern-liners, and gibberish responses appearing in nearly every raw export. Typically, we catch these issues manually — but this process can be inconsistent or overlooked.\n\n## What survey-cleaner does\n\n- **Speeders**: Identifies responses completed below a specified time threshold, with severity scaling based on speed\n- **Pattern-liners**: Detects constant ratings or repeating sequences (e.g., 1,2,3,1,2,3...) across Likert items\n- **Gibberish open-ends**: Evaluates text using Shannon entropy, keyboard mash patterns, repeat-character ratios, and length\n\nOperates fully rule-based out of the box — no API calls required. For a second layer of analysis on open-ends, it can integrate with an LLM backend (OpenAI, Anthropic, or Gemini). The two scoring systems are combined, allowing each to catch what the other might miss.\n\nAutomatically exits with code 1 if the flag rate exceeds 20%, making it easy to maintain data quality in a CI pipeline.\n\nThis is one of 40 open-source tools I'm releasing weekly throughout 2026 as part of the Computational Product Research series."
+  },
+  {
+    "slug": "ai-stress-testing-product-research",
+    "title": "Beyond the session: why AI is stress-testing everything we know about product research",
+    "date": "2026-03-30",
     "type": "general",
     "season": null,
     "tool": null,
     "repo": null,
-    "tags": ["ai-native", "computational-product-research", "perspective"],
-    "tldr": "AI-native research isn't about replacing researchers with agents. It's about building infrastructure that makes human judgment scale. Here's what that distinction means in practice.",
-    "body": "## The phrase is everywhere. The meaning is murky.\n\nEvery research team I talk to is either 'exploring AI' or 'going AI-native'. But when I ask what that means concretely, the answers converge on the same thing: using ChatGPT to summarise transcripts faster.\n\nThat's not AI-native research. That's AI-assisted note-taking.\n\n## The distinction that matters\n\nAI-assisted research uses AI to do research tasks faster. AI-native research uses AI to do research tasks that were previously impossible at any speed.\n\nThe difference is architectural, not just instrumental.\n\n- **AI-assisted**: summarise this transcript → faster synthesis\n- **AI-native**: build a knowledge graph across 500 sessions, detect when insight patterns shift, alert researchers to emerging contradictions — continuously, without a human triggering each step\n\n## What it requires\n\nAI-native research requires three things that most teams don't have:\n\n1. **Provenance** — every insight traceable to its source evidence\n2. **Continuity** — research that runs between studies, not just during them\n3. **Human-in-the-loop architecture** — AI that escalates to humans at the right moments, not one that either runs fully autonomously or requires full human direction\n\n## Why I'm building CPR\n\nComputational Product Research is my attempt to define what this infrastructure looks like — and to build the open-source components that make it accessible.\n\nNot because AI should replace researchers. Because the researchers who build with AI will define what research means in 2030.\n\nThe transition is happening whether we shape it or not."
+    "tags": [
+      "ai-native",
+      "ux-research",
+      "computational-product-research",
+      "perspective"
+    ],
+    "tldr": "AI-native products are exposing two major blind spots in how we do research: domain knowledge now has a half-life, and the session may be the wrong unit of analysis. The shift from episodic to continuous research isn't optional.",
+    "body": "## A piece of advice that aged differently than expected\n\nEarly in my career, a researcher I admire gave me advice I've carried ever since:\n\n*\"You can't research what you don't understand. Know the product. Know the market. Everything else follows.\"*\n\nLately, I've been thinking about that advice a lot. AI-native products are stress-testing our discipline in ways I hadn't anticipated, surfacing two major blind spots. I don't have all the answers yet, but they're worth naming.\n\n## Blind Spot One: Domain knowledge now has a \"half-life\"\n\nIn traditional SaaS, domain knowledge was stable. You learned the ecosystem, the user needs, and the regulatory constraints. That knowledge had a long shelf life.\n\nAI products change that. The product itself is no longer stable ground.\n\n**The example**: Imagine you're researching an AI-powered coding assistant. Six months ago, it was a fancy autocomplete tool. Today, a model update might have turned it into a reasoning agent capable of refactoring entire repos. If you're still researching it as \"autocomplete,\" your usability findings are technically correct but strategically irrelevant. The user's mental model and the product's actual value proposition have drifted apart while you weren't looking.\n\n**The shift**: We need to move away from quarterly competitive reviews and toward continuous market sensing. We have to be explicit with stakeholders about the \"knowledge expiry date\" of our findings.\n\n## Blind Spot Two: The \"session\" might be the wrong unit of analysis\n\nThere is an assumption baked into most UXR: the right unit of analysis is the session. A user, a task, a moment in time.\n\nFor decades, that worked. But AI products don't have a stable interface — they adapt. The experience User A has on Tuesday is different from what User B has on Friday because the system is learning and personalising in real-time.\n\n**The example**: The Trust Arc. In a 60-minute usability session, a user might be delighted by an AI's creative suggestions. But by day two of real-world use, the user encounters their first serious hallucination in a high-stakes meeting. The relationship breaks. A session-based study is structurally blind to this. It captures the honeymoon, but misses the divorce.\n\n**The shift**: The unit of analysis for AI isn't the session; it's the relationship over time. We need a temporal architecture for study design — moving longitudinal research from an expensive exception to our default methodology.\n\n## Designing for continuity\n\nBoth blind spots point to the same reality: traditional research was designed for a world where the product, the market, and the user relationship were relatively stable between studies.\n\nAI-native products are adaptive, evolving systems. Researching them requires practices that are equally adaptive. The researchers who invest in continuity over episodes will be the ones who move the needle."
+  },
+  {
+    "slug": "qual-sniffer",
+    "title": "qual-sniffer: reviewing your discussion guide before you run it",
+    "date": "2026-03-30",
+    "type": "orbital",
+    "season": 1,
+    "tool": "qual-sniffer",
+    "repo": "https://github.com/kgkazakos/qual-sniffer",
+    "tags": [
+      "qualitative",
+      "cli",
+      "open-source",
+      "orbital-s1"
+    ],
+    "tldr": "A Python CLI that scores your discussion guide 0–100 across leading questions, yes/no traps, missing warm-ups, and sensitive topic placement — before you run a single session.",
+    "body": "## The problem\n\nShipping a discussion guide is just the beginning. Running the sessions can sometimes reveal thin findings, often due to overlooked details.\n\n## What qual-sniffer does\n\n1. Flags leading questions, embedded assumptions, and double-barrelled questions\n2. Catches yes/no questions that may cut participant responses short\n3. Checks for a warm-up, adequate follow-up probes, and ensures no sensitive topics are present in the first three questions\n4. Returns a score from 0 to 100, along with a letter grade and fix suggestions for any identified issues\n\nWorks without requiring an API key. Offers an optional LLM summary for a written critique.\n\nThis is tool 3 of 40 in the CPR Orbital series — one open-source research tool every week throughout 2026."
+  },
+  {
+    "slug": "uxr-prompt-pack",
+    "title": "uxr-prompt-pack: a versioned prompt library for UX research",
+    "date": "2026-03-27",
+    "type": "orbital",
+    "season": 1,
+    "tool": "uxr-prompt-pack",
+    "repo": "https://github.com/kgkazakos/uxr-prompt-pack",
+    "tags": [
+      "qualitative",
+      "cli",
+      "evals",
+      "open-source",
+      "orbital-s1"
+    ],
+    "tldr": "A versioned prompt library where each prompt is a self-describing YAML card with declared variables, structured metadata, and a built-in evaluation suite. 10 prompts covering the full research lifecycle, 10 offline evaluators, 3 optional LLM backends.",
+    "body": "## The problem\n\nMany UX researchers maintain a folder titled something like \"prompts_v4_FINAL_use_this.txt.\" While effective, these prompts remain hidden from the rest of the team, lack version history, and make it difficult to assess output quality before inclusion in reports.\n\n## What uxr-prompt-pack includes\n\n- **10 prompt cards** covering the entire research lifecycle: thematic coding, insight synthesis, JTBD extraction, Say-Do gap detection, affinity diagramming, discussion guides, screener generation, exec summaries, and more\n- **10 rule-based evaluators**: `json_valid`, `contains_keywords`, `has_markdown_headers`, and others — all functioning offline with zero API calls required\n- **3 optional LLM backends**: Anthropic, OpenAI, Gemini — all opt-in and swappable\n- A **validate command** that identifies undeclared variables and unknown evaluation types before exporting to YAML, JSON, or Markdown\n\n```bash\npip install uxr-prompt-pack\n```\n\nNo API key needed to run the evaluations. No lock-in to any specific model.\n\nThis is Tool 2 of 40 in the CPR Orbital series — one open-source research tool released every week throughout 2026."
+  },
+  {
+    "slug": "synthetic-user-council-web-ui",
+    "title": "The Synthetic User Council now has a web UI",
+    "date": "2026-03-25",
+    "type": "general",
+    "season": null,
+    "tool": null,
+    "repo": "https://github.com/kgkazakos/synthetic-user-council/tree/main/ui",
+    "tags": [
+      "ai-native",
+      "ux-research",
+      "computational-product-research"
+    ],
+    "tldr": "The Synthetic User Council — a multi-agent AI system that challenges your research assumptions before you talk to real users — now has a full web interface built with Next.js 14, TypeScript, Tailwind, and Gemini 3.1 Pro. No Python, no CLI required.",
+    "body": "## From CLI to browser\n\nA few days ago I launched the Synthetic User Council — a multi-agent AI system that challenges your research assumptions before you talk to real users.\n\nThe original version ran as a Python CLI. Powerful, but not accessible to everyone.\n\nNow it has a full web interface. Built with Next.js 14, TypeScript, Tailwind, and Gemini 3.1 Pro. No Python. No CLI. Just a browser and a Gemini API key.\n\n## How it works\n\nYou paste a research brief. Five synthetic personas — Power User, Casual User, Skeptic, Edge Case User, Lost Beginner — respond in sequence, each from their own perspective. Then the council synthesises everything into a report: blind spots, challenged assumptions, sharpened interview questions, recruitment priorities.\n\n## What it surfaced on a mobile payments brief\n\n> **Power User**: \"You're blaming OS-level biometrics for your app's failure to cache user preferences and properly default the funding source.\"\n\n> **Skeptic**: \"Stop blaming standard device security for your own vague interface and start asking why users suddenly lose trust in your platform right before handing over their money.\"\n\n> **Lost Beginner**: \"I'm abandoning the payment because your app leaves me terrified that I'm accidentally sending money to a total stranger.\"\n\nThe council's synthesis: users aren't dropping off because of biometric friction. They're dropping off because the confirmation screen fails to display default funding sources, exact fees, and recipient details before the final tap.\n\nThe researcher's planned question was \"What made you hesitate before confirming the payment?\" The council found something more specific."
+  },
+  {
+    "slug": "transcript-cleaner",
+    "title": "transcript-cleaner: fixing the unglamorous problem every UX researcher ignores",
+    "date": "2026-03-24",
+    "type": "orbital",
+    "season": 1,
+    "tool": "transcript-cleaner",
+    "repo": "https://github.com/kgkazakos/transcript-cleaner",
+    "tags": [
+      "qualitative",
+      "cli",
+      "open-source",
+      "orbital-s1"
+    ],
+    "tldr": "A Python tool that fixes messy interview transcripts in seconds — speaker labels, filler words, fragmented turns, broken timestamps. Rule-based by default, LLM-powered when you need it. Supports Zoom, Otter.ai, Rev/Trint, and plain .txt.",
+    "body": "## The problem nobody talks about\n\nAfter every user interview, researchers spend 30 minutes to an hour correcting the errors made by auto-transcribers.\n\n\"But doesn't Zoom, Otter, or Dovetail handle that?\"\n\nThey handle **transcription**. That's a different layer. transcript-cleaner fixes what they produce.\n\n## What it fixes\n\n- The same person appearing as \"Kostas,\" \"K Kazakos,\" and \"Speaker 1\" within the same file\n- Sentences starting with filler words like \"um,\" \"like,\" \"you know,\" or \"sort of\"\n- A single thought broken into multiple entries because of a pause\n- Inconsistent timestamp formats across files generated by different tools\n\n## How it works\n\nFive operations, in order:\n\n1. **Fix speaker label inconsistencies** — fuzzy matching + optional LLM fallback for ambiguous cases\n2. **Fill unlabelled turns** — heuristic continuation for short turns, LLM inference for longer ones\n3. **Remove filler words** — regex pipeline with spacing cleanup\n4. **Merge fragmented short turns** — same-speaker consecutive turns under 3 words get merged\n5. **Normalise timestamps** — converts any format to clean HH:MM:SS\n\nRule-based by default. No API key required. Plug in Claude, GPT-4o, or Gemini only when you need smarter inference.\n\n```bash\npip install transcript-cleaner[cli]\ntranscript-cleaner clean my_interview.txt\n```\n\nThis is the first of 40 open-source tools I'm releasing every Friday as part of the Computational Product Research ecosystem."
+  },
+  {
+    "slug": "synthetic-user-council-launch",
+    "title": "I built an AI that argues with your research questions before you talk to real users",
+    "date": "2026-03-20",
+    "type": "general",
+    "season": null,
+    "tool": null,
+    "repo": "https://github.com/kgkazakos/synthetic-user-council",
+    "tags": [
+      "ai-native",
+      "ux-research",
+      "perspective",
+      "computational-product-research"
+    ],
+    "tldr": "The Synthetic User Council is a multi-agent AI system that challenges your research assumptions before you talk to a single real user. Five synthetic personas debate your framing and tell you what you're not asking.",
+    "body": "## The most dangerous moment in research\n\nThe most dangerous moment in user/product research isn't when a participant says something unexpected.\n\nIt's the moment before the study begins — when you write a discussion guide that's confidently, invisibly wrong.\n\nThe Synthetic User Council is a multi-agent AI system that challenges your research assumptions before you talk to a single real user.\n\nYou give it a research brief. Five synthetic personas — Power User, Casual User, Skeptic, Edge Case User, Lost Beginner — debate your framing, challenge your hypotheses, and tell you what you're not asking.\n\n## What it found across 4 real research scenarios\n\n**PM tool onboarding**: Drop-off at the \"invite teammates\" step wasn't hesitation. Users were deliberately halting to avoid triggering per-seat billing before they'd finished evaluating. The researcher's planned question assumed confusion. The council found strategy.\n\n**HR platform**: Managers weren't skipping templates because they felt \"too rigid.\" They were deliberately starving the calibration algorithm of structured data to protect top performers from forced distribution curves.\n\n**Developer pipeline**: Engineers weren't bypassing because it was slow. The pipeline was broken — false positives, opaque error logs, junior engineers begging seniors for admin credentials.\n\n**Fintech ID verification**: Drop-off wasn't about privacy discomfort. It was social context (selfies on public transit), hardware inaccessibility (tremors, old cameras), and first-time users interpreting UX warnings as legal threats.\n\nIn every case: the researcher's planned question was likely to confirm the hypothesis and stop there.\n\n## Cross-validation with CausalTrack\n\nI converted Synthetic User Council persona responses to audio, then applied CausalTrack's Say-Do Gap detection to each one.\n\nFinding: say-do gaps in synthetic personas are predicted by emotional complexity, not expertise level.\n\n- The Skeptic scored 9% consistency — performative cooperation masking deep rejection\n- The Lost Beginner showed the most hesitations and pauses — anxiety masked as eagerness\n- The Power User scored highest — direct frustration, zero surface compliance\n\nSynthetic personas exhibit behavioural cue patterns consistent with their archetype. Whether those patterns fully replicate real human behavior is an open question worth investigating.\n\nThis is Project 2 of my Computational Product Research portfolio."
+  },
+  {
+    "slug": "agentic-research-workflows-coming",
+    "title": "Agentic research workflows are coming. Most product researchers aren't ready — and neither was I",
+    "date": "2026-03-18",
+    "type": "general",
+    "season": null,
+    "tool": null,
+    "repo": null,
+    "tags": [
+      "ai-native",
+      "ux-research",
+      "perspective"
+    ],
+    "tldr": "Research workflows — not just research tools — are about to become agentic. The bottleneck isn't automation. It's framing: deciding what should be automated, what shouldn't, and why. That framing feels irreducibly human.",
+    "body": "## What I got wrong about the AI shift\n\nFor most of the past couple of years, I thought I was preparing well for the AI shift in research.\n\nI was learning to prompt better. Building AI literacy into how I work. Getting comfortable using AI tools to accelerate synthesis, refine discussion guides, speed up the parts of research that felt like overhead.\n\nGenuinely useful. But I've come to think it's not the real shift.\n\nWhat I keep coming back to is this: research *workflows* — not just research *tools* — are about to become agentic. And I'm not sure the discipline has fully reckoned with what that means.\n\n## What the trajectory suggests\n\nAt the moment, AI augments researchers. We write discussion guides; AI refines them. We code transcripts; AI suggests themes. We synthesise; AI summarises. The human is still the orchestrator.\n\nBut the trajectory suggests that won't stay that way for long.\n\nIn the next few years, agentic research systems will likely be capable of: screening and recruiting participants, conducting semi-structured interviews at scale, detecting behavioural signals across multimodal data streams, synthesising findings with full provenance tracking, and surfacing insights to stakeholders in near real time.\n\nNot as a wholesale replacement for researchers — I don't believe that's where this goes. But as an operational layer that handles more and more of what currently takes up a researcher's week.\n\n## What does the researcher actually own?\n\nThat raises a question I find myself sitting with a lot.\n\nNot the execution, probably. Not the synthesis, in the way we currently do it. Potentially not even the moderation of individual sessions.\n\nMy best current answer: **judgment. Framing. Ethical accountability.** The decision about which questions are worth asking — and which findings are trustworthy enough to act on.\n\nThat's arguably a *more* valuable role than what most researchers currently occupy. But it's a different professional identity — one that requires building new intuitions, not just new skills.\n\n## The bottleneck\n\nThe most useful thing I've learned from experimenting with AI-native research pipelines: the bottleneck is almost never the automation itself. It's the *framing* — deciding what should be automated, what shouldn't, and why.\n\nThat framing feels irreducibly human. And it might be the most important skill to build right now."
+  },
+  {
+    "slug": "what-ai-native-research-actually-means",
+    "title": "The evolution of product research: what it actually means to be AI-native",
+    "date": "2026-03-18",
+    "type": "general",
+    "season": null,
+    "tool": null,
+    "repo": null,
+    "tags": [
+      "ai-native",
+      "ux-research",
+      "perspective"
+    ],
+    "tldr": "The era of pasting transcripts into ChatGPT for a summary is over. AI-native product research means five mindset shifts: building pipelines not just prompts, simulating audiences before recruiting, becoming the guardian of explainability, shifting to always-on synthesis, and productising your craft safely.",
+    "body": "## Five mindset shifts for the AI era\n\nThe era of pasting a user interview transcript into ChatGPT and asking for a summary is over.\n\nIf we want to scale our impact as product researchers in today's environment — where teams are leaner but the demand for rigorous insights is higher than ever — we have to evolve.\n\nBefore diving into the \"how,\" we have to ground ourselves in the \"why.\" Embracing AI isn't about losing our human touch; it's about protecting it.\n\n## Guiding principles\n\n**AI amplifies empathy; it doesn't replace it.** We leverage AI to handle the heavy lifting of data processing, giving us more time and emotional bandwidth for the human nuances, silences, and contradictions that an algorithm will never truly understand.\n\n**Rigor must scale with speed.** Just because an LLM can synthesize a transcript in seconds doesn't mean it's accurate. Our role is to ensure insights remain grounded, unbiased, and verifiable — guarding against the hallucination trap.\n\n**We are orchestrators, not just operators.** We don't just passively accept the tools we are given. We actively shape pipelines, simulate environments, and build the guardrails for how our teams safely interact with user data.\n\n## The five shifts\n\n**1. Build pipelines, not just prompts**\n\nRelying on single prompts risks flattening the minority voices that make qualitative research so valuable. AI-native researchers architect pipelines using lightweight Python and RAG to semantically cluster vast amounts of data.\n\n**2. Simulate audiences before you recruit**\n\nBefore speaking to real users, use persona simulation. By spinning up agents with competing system prompts (a strict \"Security Admin\" vs. a fast-moving \"End User\"), we can stress-test early hypotheses. When we finally talk to real humans, our questions are vastly deeper.\n\n**3. Be the guardian of explainability**\n\nEnterprise trust is everything. AI-native researchers don't blindly trust LLM outputs; they build custom evals for their own qualitative and quantitative data. Measure metrics like \"Context Grounding\" to prove an AI-generated insight is backed by real user quotes, not hallucinated.\n\n**4. Shift to always-on synthesis**\n\nResearch is traditionally episodic. Set up automated pipelines that gently monitor passive data streams in the background — support tickets, community forums — to surface weak signals before they become critical drop-offs.\n\n**5. Productise your craft safely**\n\nPMs and designers will inevitably use AI to synthesize their own data. Instead of gatekeeping, empower them safely. Build specialised AI agents that have your methodological rigour baked into their system instructions — checking draft surveys for leading questions, requiring strict citations.\n\nThe goal isn't to become full-stack engineers overnight. It's about protecting the integrity of our craft while acquiring the leverage we need to build better products."
+  },
+  {
+    "slug": "causaltrack-say-do-gap",
+    "title": "Are your users being too polite? How AI hears the Say-Do Gap",
+    "date": "2026-02-23",
+    "type": "general",
+    "season": null,
+    "tool": null,
+    "repo": "https://github.com/kgkazakos/causaltrack",
+    "tags": [
+      "ai-native",
+      "ux-research",
+      "perspective",
+      "computational-product-research"
+    ],
+    "tldr": "CausalTrack uses Gemini 3 Pro to listen to raw interview audio waveforms, extracts behavioural cues — silences, vocal hesitations, tonal shifts — and maps them into a Neo4j knowledge graph to calculate a Say-Do Consistency Score. In a 50-interview validation: 79.8% Say-Do Gap detected where text analysis rated users as Positive.",
+    "body": "## The problem text analysis can't see\n\nEvery product researcher knows the feeling.\n\nA user struggles with a prototype, sighs, pauses for 3 seconds, and then says: *\"Yeah, I think that makes sense. It's pretty easy.\"*\n\nYour transcript records: \"It's pretty easy.\" Your sentiment analysis tool tags it: Positive. Your product team ships it.\n\nThis is the **Say-Do Gap**. In behavioural science, it's called Social Desirability Bias — the human tendency to smooth over friction to please the interviewer.\n\nThe problem? Text-based NLP and LLM summaries are completely blind to it. They analyse the words, but discard the hesitation.\n\n## Meet CausalTrack\n\nInstead of just reading transcripts, CausalTrack uses Gemini 3 Pro (Multimodal AI) to listen to the raw audio waveforms. It extracts behavioural cues — silences, vocal hesitations, tonal shifts — and maps them into a Neo4j Knowledge Graph to calculate a Say-Do Consistency Score.\n\n## The validation experiment\n\nI ran a controlled experiment with 50 synthetic interviews where users were designed to be \"polite but frustrated.\"\n\n- **Text Analysis**: Rated the struggling users as \"Positive\"\n- **CausalTrack**: Detected a **79.8% Say-Do Gap** — the struggling users had only 3.2% consistency between what they *said* and how they *sounded*, with 98% classification accuracy\n\nThe AI successfully \"heard\" the friction that the text concealed.\n\n## The ask\n\nI'm looking to collaborate with an initial pilot cohort of research teams who have 1–2 hours of anonymised interview audio. The goal is to stress-test this methodology for a potential co-authored conference paper.\n\nIf you're interested in the intersection of AI, behavioural science, and user research — let's talk.\n\n*This is an independent methodology experiment conducted in my personal time and is not affiliated with my current or previous employers.*"
+  },
+  {
+    "slug": "computational-product-research-why",
+    "title": "Why I am spending the next year bridging the gap between mixed-methods product research and AI engineering",
+    "date": "2025-12-08",
+    "type": "general",
+    "season": null,
+    "tool": null,
+    "repo": null,
+    "tags": [
+      "ai-native",
+      "ux-research",
+      "perspective",
+      "computational-product-research"
+    ],
+    "tldr": "We're facing an Alignment Gap: engineers optimise for automated metrics that miss human intent, while researchers define quality through interviews but lack the engineering throughput to evaluate models at scale. The fix isn't more dashboards — it's Computational Product Researchers who can translate Human Delight into Reward Functions.",
+    "body": "## The wall our current toolkit is hitting\n\nFor the last 9+ years, I've led mixed-methods product research at Google, Electronic Arts, and Atlassian. I've spent my career weaving together deep qualitative empathy with rigorous quantitative data to inform the product development of billion-dollar products.\n\nBut as we've entered the era of Agentic AI, our current toolkit is hitting a wall.\n\n## The Alignment Gap\n\n1. Engineers often optimize for automated metrics (BLEU, pass@k, latency) which miss the nuance of human intent.\n2. Researchers define \"quality\" through interviews and surveys, but we lack the engineering throughput to evaluate models at the scale of 1M+ inferences.\n\nTo fix this, we don't need more dashboards. We need a mental model shift toward **Computational Product Researchers** — leaders who can translate \"Human Delight\" into \"Reward Functions\" and scale qualitative intuition using quantitative engineering.\n\n## What I'm building\n\nOver the next 13 months, I'm executing a technical roadmap to build the Full Stack Research Platform of the future. Moving from \"analyzing data\" to \"architecting systems.\"\n\nWhat I'm investigating:\n\n**Bias Detection in Qual**: Using graph-based relationship mapping to see whose voices we're accidentally amplifying — or silencing.\n\n**Scalable Stakeholder Analysis**: Building multi-agent frameworks to stress-test product decisions before they ship.\n\n**Behavioral Pattern Recognition**: Leveraging multimodal AI to surface UX friction across thousands of sessions that a human eye would miss.\n\nI'll be getting my hands dirty with Gemini 3 Pro, Neo4j, and LangGraph to build working prototypes and open-source contributions.\n\nIf you're a researcher, PM, or designer looking to code — or an engineer looking to understand users — follow along. Let's define the next generation of Human-AI Alignment together."
   }
 ]
