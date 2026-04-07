@@ -1,5 +1,18 @@
 [
   {
+  "slug": "research-rubric",
+  "title": "research-rubric: scoring qualitative research quality across eight dimensions",
+  "date": "2026-04-07",
+  "type": "orbital",
+  "season": 1,
+  "tool": "research-rubric",
+  "repo": "https://github.com/kgkazakos/research-rubric",
+  "tags": ["qualitative", "cli", "evals", "open-source", "orbital-s1"],
+  "tldr": "A CLI tool that scores any qualitative research document across eight evidence-based dimensions — thematic saturation, bias awareness, evidence linkage, triangulation, reflexivity, transferability, credibility, and rigour of analysis. No API keys. No setup. Drop in a text file.",
+  "body": "## The problem\n\nQualitative research reports rarely get a formal quality review before they influence product decisions.\n\nNot because researchers don't care — but because there's no lightweight, consistent way to do it quickly.\n\n## What research-rubric does\n\nScores any qualitative research document across eight evidence-based dimensions:\n\n- **Thematic saturation** — is there a stopping rationale, or did interviews just stop?\n- **Bias awareness** — is researcher positionality acknowledged?\n- **Evidence linkage** — are claims backed by actual participant quotes?\n- **Triangulation** — one data source, or multiple?\n- **Reflexivity** — did the researcher account for their own influence?\n- **Transferability** — is the context described well enough to judge applicability?\n- **Credibility** — member checking, audit trail, negative case analysis?\n- **Rigour of analysis** — is the analytical method named and described?\n\nEach dimension scores 0–100. The overall score is the mean. Levels: high / medium / low.\n\n## How it works\n\nNo API keys. No setup. Just drop in a text file.\n\nThe tool also ships with a labelled eval dataset and a runner — so you can measure how the rubric performs on your own corpus, not just trust it.\n\n`llm.py` ships as open scaffolding for anyone who wants to wire up a narrative layer. The rule-based core is the deliverable.\n\n\\#06 of 40. Shipping every Friday through December."
+  },
+  
+  {
   "slug": "product-research-trap-ask-need-gap",
   "title": "The product research trap that AI might be fixing — or making worse",
   "date": "2026-04-07",
