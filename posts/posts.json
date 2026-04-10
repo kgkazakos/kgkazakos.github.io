@@ -2,7 +2,7 @@
   {
   "slug": "saturation-meter",
   "title": "saturation-meter: measuring when your qual corpus stopped producing new signal",
-  "date": "2026-05-08",
+  "date": "2026-04-11",
   "type": "orbital",
   "season": 2,
   "tool": "saturation-meter",
@@ -15,7 +15,7 @@
   {
   "slug": "guide-scorer",
   "title": "guide-scorer: a systematic pre-flight check for discussion guides",
-  "date": "2026-05-01",
+  "date": "2026-04-09",
   "type": "orbital",
   "season": 2,
   "tool": "guide-scorer",
