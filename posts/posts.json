@@ -1,5 +1,18 @@
 [
   {
+  "slug": "saturation-meter",
+  "title": "saturation-meter: measuring when your qual corpus stopped producing new signal",
+  "date": "2026-05-08",
+  "type": "orbital",
+  "season": 2,
+  "tool": "saturation-meter",
+  "repo": "https://github.com/kgkazakos/saturation-meter",
+  "tags": ["qualitative", "dspy", "cli", "open-source", "orbital-s2"],
+  "tldr": "You give it your coded transcript dataset. It calculates the new-theme rate per interview, applies a rolling-window detection algorithm, and tells you when your corpus stopped producing new signal — and with what confidence.",
+  "body": "## The question every qual researcher gets asked\n\n\"How many interviews is enough?\"\n\nMost answer with a rule of thumb — \"until themes repeat\" or \"n=12\" — because tracking saturation manually is tedious and rarely happens in practice.\n\nThe insight that should inform your stop decision is already in your coded data. You just haven't measured it.\n\n## What saturation-meter does\n\nYou give it your coded transcript dataset (CSV or JSON). It calculates the new-theme rate per interview, applies a rolling-window detection algorithm, and tells you when your corpus stopped producing new signal — and with what confidence.\n\n**What you get:**\n\n- Per-interview saturation curve — new themes, cumulative themes, discovery rate\n- Configurable threshold and window size for your study context\n- Stop-point recommendation with a confidence rating: high, medium, low, or insufficient data\n- JSON output for CI integration or downstream analysis\n- Optional plain-language narrative via OpenAI, Anthropic, or Gemini\n\nNo API keys required to run it. The rule-based core works everywhere. The `--llm-backend` flag is strictly opt-in.\n\nTool 8 of 40 in the CPR Orbital series — one open-source research infrastructure tool every Friday through December."
+  },
+  
+  {
   "slug": "guide-scorer",
   "title": "guide-scorer: a systematic pre-flight check for discussion guides",
   "date": "2026-05-01",
