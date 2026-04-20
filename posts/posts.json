@@ -1,5 +1,17 @@
 [
   {
+  "slug": "persona-forge",
+  "title": "persona-forge: treating personas as behavioural contracts, not demographic snapshots",
+  "date": "2026-04-21",
+  "type": "orbital",
+  "season": 2,
+  "tool": "persona-forge",
+  "repo": "https://github.com/kgkazakos/persona-forge",
+  "tags": ["qualitative", "dspy", "cli", "open-source", "orbital-s2"],
+  "tldr": "Generates deterministic, richly profiled personas from seed attributes and validates whether they behave consistently across sessions. Detects contradictions, goal drift, and behavioural gaps — with a severity-weighted consistency score.",
+  "body": "## The problem: drift\n\nMost research personas don't hold up across sessions.\n\nYou build them in discovery, define a decision style and a risk profile, then watch them quietly shift by the time usability testing rolls around. Goals change between sessions. Attitudes flip. Behaviours that showed up in week one disappear in week three. Nobody flagged it — because nobody was tracking it.\n\nThat's drift: the persona you thought you had isn't the one you're studying anymore.\n\n## What persona-forge does\n\n`persona-forge` treats personas as behavioural contracts, not demographic snapshots. It generates richly profiled participants from seed attributes — tech savviness, decision style, risk tolerance — then validates whether they behave consistently across sessions.\n\n- Generates deterministic personas from structured seeds (same inputs → same persona, every time)\n- Assigns behavioural traits from a keyed library: how the trait expresses itself, and what contradicts it\n- Detects contradictions, goal drift, and behavioural gaps across multiple session snapshots\n- Produces a severity-weighted consistency score (0.0–1.0) with flagged attributes\n- Optional LLM enrichment via OpenAI, Anthropic (Claude Sonnet), or Gemini (3.1 Pro) adds narrative, verbatim quotes, and subtle watch-outs\n\nThe core runs without any API key. The LLM layer is strictly opt-in.\n\nTool 10 of 40 in the CPR Orbital series — shipping every Friday through December."
+  },
+  {
   "slug": "what-ai-is-replacing-in-product-research",
   "title": "The part of product research that AI is replacing isn't the part we talk about",
   "date": "2026-04-12",
