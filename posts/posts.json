@@ -1,5 +1,18 @@
 [
   {
+  "slug": "interview-sim",
+  "title": "interview-sim: a rehearsal space before you go into the field",
+  "date": "2026-05-22",
+  "type": "orbital",
+  "season": 2,
+  "tool": "interview-sim",
+  "repo": "https://github.com/kgkazakos/interview-sim",
+  "tags": ["qualitative", "langchain", "streamlit", "cli", "open-source", "orbital-s2"],
+  "tldr": "Give it a discussion guide and a participant profile and it generates a full interview transcript, complete with follow-up probes and auto-coded turns. A rehearsal space before the real thing — not a replacement for it.",
+  "body": "## The question every pilot session tries to answer\n\nMost pilot sessions exist to answer one question: will participants understand what we're asking?\n\nYou can't answer that without running the session. But sometimes you need a rehearsal before the real thing.\n\n`interview-sim` is that rehearsal space. Give it a discussion guide and a participant profile — verbosity, sentiment, pain points, motivations — and it generates a full interview transcript, complete with follow-up probes and auto-coded turns.\n\nTo be clear: nothing replaces sitting with a real participant. The nuance, the silence, the unexpected tangent that reshapes your whole framing — simulation can't give you that. What it can give you is a faster path to being ready for it.\n\n## What it does\n\n- Simulates participant responses shaped by verbosity (1–5), sentiment, and behavioural traits\n- Adds probes probabilistically, the way a real moderator would\n- Auto-codes every participant turn across 11 UX research dimensions\n- Flags saturation signals when themes repeat\n- Batch mode: simulate an entire panel from a directory of participant JSONs\n\n## The LLM layer\n\nThe rule-based core runs with zero API calls. The LLM enrichment layer ships as a first-class feature — not scaffolding, not a footnote. It rewrites templated responses into natural participant voice, shaped by the full profile. All three backends tested and CI-green: OpenAI, Anthropic (Claude), Gemini.\n\nThe difference matters. A simulation that reads like a template helps you check your guide. One that sounds like a real person helps you rehearse your moderation.\n\nNeither one is a substitute for the research.\n\n## Part of the CPR simulation stack\n\nGenerate your panel with `synthetic-participants`, forge your personas with `persona-forge`, rehearse your sessions with `interview-sim`. Then go talk to real people.\n\nTool 11 of 40 in the CPR Orbital series — one open-source research tool every Friday through December."
+  },
+  
+  {
   "slug": "persona-forge",
   "title": "persona-forge: treating synthetic personas as behavioural contracts, not demographic snapshots",
   "date": "2026-04-21",
