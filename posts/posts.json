@@ -1,4 +1,16 @@
 [
+ {
+  "slug": "stat-narrator",
+  "title": "stat-narrator: translating statistical output into plain-language research narratives",
+  "date": "2026-04-23",
+  "type": "orbital",
+  "season": 2,
+  "tool": "stat-narrator",
+  "repo": "https://github.com/kgkazakos/stat-narrator",
+  "tags": ["quantitative", "dspy", "cli", "open-source", "orbital-s2"],
+  "tldr": "Give it a JSON description of your statistical results and it returns a plain-language headline, APA-aligned effect size classification, segmented narrative body, practitioner takeaway, and warnings for what the numbers can't tell you. Rule-based core, optional LLM polish.",
+  "body": "## The paralysis after the stats\n\nThere's a specific kind of paralysis that hits after you run your stats.\n\nThe numbers are right there. R² = 0.43. F(3, 241) = 60.8, p < .001. Satisfaction β = 0.41, Trust β = 0.28, Ease ns.\n\nYou know what it means. But now you have to translate it — for the PM, for the research report, for the exec brief — and you've already spent six hours getting to this point.\n\n## What stat-narrator does\n\nYou give it a JSON description of your statistical results. It gives you back:\n\n- A plain-language headline (\"Satisfaction and Trust significantly predicted Willingness to Pay\")\n- APA-aligned effect size classification (R², Cohen's d, η², r, Cramér's V — interpreted against Cohen 1988 benchmarks)\n- Segmented narrative body — model fit, predictors, effect interpretation\n- A practitioner takeaway — concrete, actionable, not just a restatement of the p-value\n- Warnings for what the numbers can't tell you — small samples, borderline p-values, missing effect sizes\n\nSupported stat types: multiple regression, t-test, one-way ANOVA, Pearson correlation, chi-square, factor analysis.\n\n## The architecture is intentional\n\nThe core engine is fully rule-based and works entirely offline with zero API calls. The math is always computed deterministically — no hallucinated effect sizes, no invented p-values.\n\nNeed more conversational polish? Pass `--llm-backend openai|anthropic|gemini` and the LLM receives the rule-based output as grounded context and writes report-ready prose on top of it.\n\nAnchor the statistics in rules first, then let the LLM handle language — not the other way around.\n\nTool 12 of 40 in the CPR Orbital series — one open-source Python tool every Friday through December."
+  },
   {
   "slug": "interview-sim",
   "title": "interview-sim: a rehearsal space before you go into the field",
