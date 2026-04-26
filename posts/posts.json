@@ -1,5 +1,18 @@
 [
  {
+  "slug": "divergence-probe",
+  "title": "divergence-probe: surfacing behavioural contradictions in interview transcripts",
+  "date": "2026-04-27",
+  "type": "orbital",
+  "season": 3,
+  "tool": "divergence-probe",
+  "repo": "https://github.com/kgkazakos/divergence-probe",
+  "tags": ["qualitative", "cli", "open-source", "orbital-s3"],
+  "tldr": "Points at a transcript and returns a ranked list of behavioural divergences — the exact claim, the exact contradicting report, and a ready-to-use probe question for each one. Runs entirely offline, no credentials required.",
+  "body": "## The moment you almost miss\n\nThere's a moment in almost every interview where a participant contradicts themselves — and you almost miss it.\n\n*\"I always write up my notes straight after the session. Never let it slip.\"*\n\nThree questions later: *\"I actually skipped notes for two meetings this week. I kept telling myself I'd do it later.\"*\n\nThat's a behavioural divergence. What someone habitually claims to do versus what the episodic record actually shows. It's one of the most analytically valuable signals in qualitative research — and one of the easiest to lose when you're in the room managing rapport, listening actively, tracking time, and forming your next question all at once.\n\nWe catch some of these live. We miss more than we think. And going back through a 90-minute transcript to surface them manually is the kind of task that rarely survives a busy afternoon.\n\n## What divergence-probe does\n\nPoint it at a transcript file — any format, any speaker labelling convention — and it returns a ranked list of divergences with the exact claim, the exact contradicting report, and a ready-to-use probe question for each one. No graph database. No pipeline setup. No credentials required. Runs entirely offline on a rule-based engine in seconds.\n\n**What you get out of the box:**\n\n- Habitual claims tagged automatically (\"I always / usually / try to / never\")\n- Episodic reports tagged automatically (\"I actually / forgot / ended up / last week I\")\n- Divergences classified as CONTRADICTION, PARTIAL, or UNCERTAIN — ranked by confidence\n- A natural follow-up probe per divergence, ready to paste into your debrief guide\n- Batch mode to scan an entire session folder in one pass\n- JSON output to pipe results into your own analysis tooling\n- Optional `--llm-backend anthropic` (or openai / gemini) for richer, context-aware probes\n\n## The 80% solution\n\nThe heavier version of this analysis — longitudinal, multimodal, backed by a graph database — is a separate project I'm building. `divergence-probe` is the 80% solution: the one you can run on your laptop in the next five minutes, on the transcript you recorded this morning.\n\nTool 13 of 40 in the CPR Orbital series — one open-source research infrastructure tool, every Friday, from March through December."
+  },
+ 
+  {
   "slug": "stat-narrator",
   "title": "stat-narrator: translating statistical output into plain-language research narratives",
   "date": "2026-04-23",
