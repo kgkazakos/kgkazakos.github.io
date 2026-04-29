@@ -1,8 +1,20 @@
 [
  {
+  "slug": "uxr-bench",
+  "title": "uxr-bench: a benchmark dataset and evaluation harness for LLM performance on qualitative research tasks",
+  "date": "2026-04-30",
+  "type": "orbital",
+  "season": 3,
+  "tool": "uxr-bench",
+  "repo": "https://github.com/kgkazakos/uxr-bench",
+  "tags": ["evals", "qualitative", "cli", "open-source", "orbital-s3"],
+  "tldr": "A benchmark dataset and evaluation harness for LLM performance on qualitative UX research tasks — 25 annotated tasks across thematic coding, bias detection, insight extraction, discussion guide evaluation, and Say-Do gap detection.",
+  "body": "## The harder question\n\nOne of the harder questions in AI-assisted research right now is a simple one: how do you actually know if a model is any good at qualitative work?\n\nNot in general. For the specific things researchers do — coding themes, spotting bias in a guide, detecting when a participant's behaviour contradicts what they said.\n\n## What uxr-bench does\n\n25 annotated tasks across five skills that come up constantly in product research:\n\n- **Thematic coding** — identify themes from interview excerpts\n- **Bias detection** — spot leading questions, anchoring, social desirability pressure\n- **Insight extraction** — surface actionable findings from messy data\n- **Discussion guide evaluation** — score guide quality 0–100\n- **Say-Do gap detection** — find the gap between what participants say and what they reveal\n\n## An honest caveat\n\nThe built-in tasks are synthetic. Constructed to reflect real qualitative research patterns — privacy paradox, notification fatigue, workaround behaviour — but not drawn from actual research sessions. The ground truth labels were reasoned from first principles, not validated through inter-rater reliability with human coders. That work is coming in a later tool in this series.\n\nWhat this means in practice: uxr-bench is most honest as a developer evaluation tool. Something you run to catch regressions, compare models, and understand where a given LLM tends to fall apart before you put it in front of real research data.\n\nIf you have your own annotated research corpus — real transcripts, real labels, real ground truth — you can wire it straight into the harness through a single response function.\n\n```bash\npip install uxr-bench\nuxr-bench run --all\nuxr-bench run --category bias_detection --llm-backend anthropic\nuxr-bench run --category say_do_gap --llm-backend gemini\n```\n\nTool 15 of 40 in the CPR Orbital series — 40 open-source tools for AI-native product research infrastructure, shipping every Friday through December."
+  },
+  {
   "slug": "bias-audit",
   "title": "bias-audit: scanning interviewer turns for nine established bias patterns",
-  "date": "2026-04-30",
+  "date": "2026-04-29",
   "type": "orbital",
   "season": 3,
   "tool": "bias-audit",
