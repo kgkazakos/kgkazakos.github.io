@@ -1,5 +1,17 @@
 [
  {
+  "slug": "bias-audit",
+  "title": "bias-audit: scanning interviewer turns for nine established bias patterns",
+  "date": "2026-04-30",
+  "type": "orbital",
+  "season": 3,
+  "tool": "bias-audit",
+  "repo": "https://github.com/kgkazakos/bias-audit",
+  "tags": ["qualitative", "dspy", "cli", "evals", "open-source", "orbital-s3"],
+  "tldr": "Scans interviewer turns across a transcript corpus for nine established bias patterns — leading questions, answer suggestion, confirmation reinforcement, agreement injection, and more. Each flagged instance includes the excerpt, severity, and a plain-language explanation of the methodological risk.",
+  "body": "## The gap between knowing and noticing\n\nThere's a gap between knowing that leading questions are bad and actually knowing how often you ask them.\n\nAfter the session ends, your notes say \"participant confirmed the hypothesis.\" What the transcript shows is: you asked three loaded questions, injected agreement twice, and offered the word \"frustrating\" before they did.\n\nThat's not qualitative data. That's a conversation that confirmed what you walked in expecting.\n\n## What bias-audit does\n\nScans interviewer turns across a transcript corpus for nine established bias patterns:\n\n- Leading and loaded questions\n- Answer suggestion and social desirability framing\n- Confirmation reinforcement and double-barrelled questions\n- Hypothetical grounding, agreement injection, closed questions\n\nEach flagged instance includes the excerpt, severity (HIGH / MEDIUM / LOW), and a plain-language explanation of the methodological risk.\n\nAdd `--llm-backend` and it generates neutral alternative phrasings inline — works with OpenAI, Anthropic (Claude), or Gemini:\n\n```bash\nbias-audit analyze interview.json --llm-backend anthropic\nbias-audit analyze interview.json --llm-backend openai\nbias-audit analyze interview.json --llm-backend gemini\n```\n\n## Designed to pair with research-rubric\n\nbias-audit is designed to run alongside research-rubric (Tool 6), which evaluates the overall quality of a qualitative study across eight dimensions — saturation, evidence strength, reflexivity, and others.\n\nresearch-rubric tells you whether the study holds up. bias-audit tells you why it might not. They're meant to be run together as a quality gate before synthesis begins.\n\nFully rule-based, zero API keys required. MIT licensed. 144 tests, CI across Python 3.10–3.12.\n\nTool 14 of 40 in the CPR Orbital series "
+  },
+  {
   "slug": "divergence-probe",
   "title": "divergence-probe: surfacing behavioural contradictions in interview transcripts",
   "date": "2026-04-27",
