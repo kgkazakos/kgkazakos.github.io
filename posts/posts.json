@@ -1,5 +1,17 @@
 [
  {
+  "slug": "effect-sizer",
+  "title": "effect-sizer: the right effect size for your method, with benchmarks and plain-language interpretation",
+  "date": "2026-05-02",
+  "type": "orbital",
+  "season": 3,
+  "tool": "effect-sizer",
+  "repo": "https://github.com/kgkazakos/effect-sizer",
+  "tags": ["quantitative", "cli", "open-source", "orbital-s3"],
+  "tldr": "Pass in your study statistics and get back the right effect size for your method, a plain-language interpretation, confidence intervals where applicable, and benchmark thresholds with sources cited. Covers 10 methods. Rule-based core, no API key required.",
+  "body": "## The follow-up question\n\nSomething that comes up often in research debriefs: a statistically significant finding, and then the follow-up question — \"but how big is the effect, really?\"\n\nIt's a fair question. And the honest answer is that most teams don't have a clean answer ready.\n\n## The problem: method mismatch\n\nPart of the problem is method mismatch. Cohen's d works for comparing two group means. It doesn't belong anywhere near a chi-square test or a proportion comparison. But it tends to get applied everywhere, because it's the one most researchers remember from methods training.\n\nThe others — Cramér's V, Cohen's h, ω² — exist, but looking up the right formula and the right benchmark thresholds mid-debrief isn't how anyone wants to spend their time.\n\n## What effect-sizer does\n\nYou pass in your study statistics. It returns the right effect size for your method, a plain-language interpretation, confidence intervals where applicable, and the benchmark thresholds used — with the source cited so you're not just trusting defaults.\n\n**What it covers:**\n\n- 10 methods: Cohen's d/h/f/w, Hedges' g, Glass's Δ, Cramér's V, η², ω², Pearson r\n- CIs for mean-difference and correlation methods (Hedges & Olkin, Fisher z)\n- df-adjusted Cramér's V thresholds (Lakens, 2013) — not the naïve one-size-fits-all version\n- ω² alongside η², with the small-sample correction factor shown explicitly\n- Batch mode for running multiple calculations from a single JSON file\n- LLM narrative via `--llm-backend` (OpenAI, Anthropic, Gemini — included in the default install)\n\n## The architecture\n\nThe rule-based core runs entirely without an API key. The LLM layer adds a one-paragraph stakeholder-ready summary when you need it — the kind of thing that would otherwise take ten minutes to write at the end of a long analysis session.\n\nA small thing, but one that tends to matter at the moment it's needed.\n\nTool 16 of 40 in the CPR Orbital series — open-source Python tools for AI-native product research infrastructure, shipping every Friday through December."
+  },
+  {
   "slug": "uxr-bench",
   "title": "uxr-bench: a benchmark dataset and evaluation harness for LLM performance on qualitative research tasks",
   "date": "2026-04-30",
