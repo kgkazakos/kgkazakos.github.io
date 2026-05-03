@@ -1,5 +1,17 @@
 [
  {
+  "slug": "recall-probe",
+  "title": "recall-probe: making longitudinal inconsistency visible so you can decide what it means",
+  "date": "2026-05-04",
+  "type": "orbital",
+  "season": 3,
+  "tool": "recall-probe",
+  "repo": "https://github.com/kgkazakos/recall-probe",
+  "tags": ["qualitative", "langchain", "cli", "open-source", "orbital-s3"],
+  "tldr": "Takes your structured wave data and surfaces where the same participant said something meaningfully different across waves — attitude flips, quantifier shifts, behavioural contradictions — scored and flagged so you can decide what they mean. Genuine attitude evolution or reliability noise? The tool makes the distinction visible. You make the call.",
+  "body": "## The moment that gets absorbed quietly\n\nThere's a moment in longitudinal UX research that tends to get absorbed quietly into the analysis.\n\nWave 1: participants tell you they always compare options carefully, that they trust the platform, that security matters above everything else. Wave 2, three months later: some of those same participants say the opposite — the trust is gone, they never compare anymore, the process feels broken.\n\nNow you have a question worth sitting with. Did their workflow fundamentally shift — and is that shift itself the insight your study was designed to capture? Or are you looking at an unreliable narrator, someone whose stated behaviour was never quite matching their actual one?\n\nBoth possibilities matter. But they lead to very different product conversations.\n\n## The problem without tooling\n\nWithout tooling, the inconsistency often stays invisible. Both datasets sit in your repository, both get cited, and the tension between them never quite surfaces in the write-up.\n\n## What recall-probe does\n\n`recall-probe` doesn't resolve that tension for you. It makes it visible.\n\nIt takes your structured wave data and surfaces where the same participant said something meaningfully different across waves — attitude flips, quantifier shifts, behavioural contradictions — scored and flagged so you can decide what they mean.\n\nGenuine attitude evolution after a product change? That's your finding. A participant contradicting a baseline fact with no clear trigger? That's worth a reliability note.\n\nThe current framing in most longitudinal research implicitly treats all inconsistency as a data quality problem. recall-probe treats it as ambiguous by design — making the change visible and legible so you can decide what it means, not pre-judging it as noise.\n\n## How it works\n\nBy default it connects to an LLM (OpenAI, Anthropic, or Gemini) to generate a plain-language narrative for each flagged inconsistency. `--no-llm` gives you fully offline, rule-based output.\n\nOpen-source, MIT licensed.\n\nTool 17 of 40 in the CPR Orbital series — 40 open-source Python tools for AI-native product research, shipping every Friday through December. S3 is Evaluation & Benchmarks."
+  },
+  {
   "slug": "effect-sizer",
   "title": "effect-sizer: the right effect size for your method, with benchmarks and plain-language interpretation",
   "date": "2026-05-02",
