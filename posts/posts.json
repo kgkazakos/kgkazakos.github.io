@@ -1,5 +1,17 @@
 [
  {
+  "slug": "coding-eval",
+  "title": "coding-eval: computing inter-rater reliability between LLM and human coders, per code",
+  "date": "2026-05-05",
+  "type": "orbital",
+  "season": 3,
+  "tool": "coding-eval",
+  "repo": "https://github.com/kgkazakos/coding-eval",
+  "tags": ["qualitative", "evals", "cli", "open-source", "orbital-s3"],
+  "tldr": "Computes Cohen's Kappa between LLM and human coders — per code, not just overall — so you can see exactly which codes the model handles well and which ones it struggles with. The same reliability bar you'd apply to a human co-coder should apply to a model.",
+  "body": "## The question that deserves a number\n\nThere's a moment every researcher knows well.\n\nYou've run LLM-assisted thematic coding for a few sessions. It seems to be tracking your scheme. But a nagging question sits quietly in the background: how close is close enough?\n\nThat question deserves a number, not a feeling.\n\n## The uncomfortable reality\n\nMost teams adopt LLM-assisted qualitative analysis based on vibes. A few spot-checks. A sense that it's \"mostly right.\" That's understandable — calibration takes time, and time is exactly what LLM tooling is supposed to save you. But if you're using model-generated codes to inform product decisions, \"mostly right\" isn't a methodology. It's a risk you're carrying silently.\n\nCohen's Kappa has been the gold standard for inter-rater reliability in qualitative research for decades. κ ≥ 0.80 is almost perfect agreement. κ < 0.60 usually warrants recalibration before you'd trust a human co-coder — the same bar should apply to a model.\n\n## What coding-eval does\n\n- **Per-code Cohen's Kappa** — binary agreement for every code in your scheme, weighted by support and macro averaged, so you can see exactly which codes the model handles well and which ones it struggles with\n- **Precision, Recall, F1** — per code, not just aggregate, so drift is visible at the right level of granularity\n- **Exact set agreement** — proportion of segments where LLM codes match the human set precisely\n- **A–F grade** — based on Landis & Koch (1977) thresholds; anything below B is a signal worth acting on\n- **Three workflows** — `eval` re-codes your segments live via the LLM of your choice, `compare` takes two pre-coded files and computes agreement between them, `batch` sweeps a directory for ongoing monitoring\n\nLLM on by default — OpenAI, Anthropic (Claude), and Gemini supported out of the box. Any LiteLLM-compatible model works if you want to run calibration with a stronger model.\n\n## The usual objection\n\n\"We don't have the budget to re-code everything.\" You don't need to. A 10–20 segment calibration set, drawn from real sessions, is often enough to know whether your model is operating in B territory or quietly producing F-grade noise at scale. That's an afternoon, not a project.\n\nMIT licensed. Zero API keys required for the rule-based path.\n\nTool 18 of 40 in the CPR Orbital series — open-source Python tooling for AI-native product research, shipping continuously through 2026."
+  },
+  {
   "slug": "recall-probe",
   "title": "recall-probe: making longitudinal inconsistency visible so you can decide what it means",
   "date": "2026-05-04",
