@@ -1,5 +1,18 @@
 [
- {
+ 
+  {
+  "slug": "synthetic-panel",
+  "title": "synthetic-panel: a persistent, versioned panel of synthetic research participants",
+  "date": "2026-05-09",
+  "type": "orbital",
+  "season": 4,
+  "tool": "synthetic-panel",
+  "repo": "https://github.com/kgkazakos/synthetic-panel",
+  "tags": ["qualitative", "streamlit", "open-source", "orbital-s4"],
+  "tldr": "A Streamlit app that builds a persistent, versioned panel of synthetic research participants — maintaining the same archetypes across multiple studies and tracking how they evolve over time. From ad-hoc scripts to proper infrastructure.",
+  "body": "## The pattern I keep noticing\n\nAs I've been experimenting with synthetic research studies, I've noticed a common pattern: we often treat AI participants as single-use. We generate them for a quick read, run the prompt, and let them go.\n\nThat works well enough for a lightweight gut-check. But it doesn't reflect the nuanced reality of longitudinal research, and it misses out on something genuinely useful: continuity.\n\n## What synthetic-panel does\n\n`synthetic-panel` is a Streamlit app designed to build a persistent, versioned panel of synthetic research participants. It allows you to run the exact same archetypes across multiple studies and track how they evolve over time.\n\nHow it shifts this work from ad-hoc scripts to helpful infrastructure:\n\n- **Persistent Registry** — maintains a named roster of synthetic participants with stable behavioural profiles\n- **Version History** — observes how a specific archetype's attitudes and usage patterns might shift between v1 and v2 of a product\n- **Targeted Assignment** — filters and assigns specific panel subsets to new study waves based on their past interactions\n- **Session Logging** — records a continuous history of what they saw, how they responded, and what changed\n- **Interoperable Export** — outputs JSON profiles and histories for downstream simulation or analysis\n\nOptional LLM enrichment layer: given a participant's session history, it suggests how their attributes might plausibly evolve for the next wave. You can inspect the suggestion or apply it as a new version snapshot with one flag. Backends: OpenAI, Anthropic (Claude), Gemini. The rule-based core runs fully without any API calls.\n\n## The valid objection — and my answer\n\nSynthetic participants aren't real, so why maintain continuity?\n\nI want to be clear on my stance: research with real humans is absolutely paramount. Synthetic participants cannot and should not replace the depth of authentic user research. These systems should complement deep research efforts, not replace them.\n\nThe value of a synthetic panel isn't in simulating perfect human realism — it's in creating experimental control within our toolsets. If you want to understand how a specific archetype might respond to a new feature, testing it against the exact same baseline participant you used last time gives you a consistent delta. It removes the noise of a freshly randomised prompt.\n\nI'm building toward a persistent synthetic research infrastructure where participants accumulate history, not just attributes — freeing us up to focus our deepest empathy on the real humans we design for.\n\nTool 20 of 40 in the CPR Orbital series — 40 open-source tools for AI-native product research, shipping almost daily. MIT licensed."
+  },
+  {
   "slug": "behavioral-profile",
   "title": "behavioral-profile: building structured behavioural models from participant data over time",
   "date": "2026-05-06",
