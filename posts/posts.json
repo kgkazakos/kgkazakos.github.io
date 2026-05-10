@@ -1,6 +1,19 @@
 [
  
   {
+  "slug": "sample-sizer",
+  "title": "sample-sizer: an AI-assisted sample size calculator for the full qual-to-quant spectrum",
+  "date": "2026-04-10",
+  "type": "orbital",
+  "season": 4,
+  "tool": "sample-sizer",
+  "repo": "https://github.com/kgkazakos/sample-sizer",
+  "tags": ["quantitative", "mixed", "streamlit", "cli", "open-source", "orbital-s4"],
+  "tldr": "Covers 10 research methods across the full qual-to-quant spectrum — saturation-based guidance for interviews, usability tests and diary studies, power analysis for surveys, A/B tests and experiments. Rule-based core, live power curves, optional plain-language rationale via LLM.",
+  "body": "## The question that's harder than it looks\n\nSample sizes are one of those things that feel obvious until someone asks you to justify them.\n\n\"Why 18 interviews?\" is a harder question than it looks — and so is \"why 385 survey responses?\" The answer lives somewhere between methodology, participant homogeneity, statistical power, and how many times your PM has already asked when the study will be done.\n\nMost researchers develop an intuition for this over time. But intuition is hard to document, hard to defend in a research review, and nearly impossible to hand off to someone junior who's scoping their first study.\n\n## What sample-sizer does\n\n`sample-sizer` makes that answer explicit and transferable — covering the full qual-to-quant spectrum across 10 research methods.\n\n**Qualitative methods:** interviews, focus groups, diary studies, usability tests, and card sorting — saturation-based guidance with interim review checkpoints, grounded in Guest et al. and Creswell.\n\n**Quantitative methods:** surveys, A/B tests, tree testing, experiments, and correlation — Cochran's formula, finite population correction, and two-sided power analysis with configurable α, β, and MDE.\n\nThe Streamlit UI shows live power curves and saturation plots so you can see what happens to your N as assumptions shift.\n\n## The architecture\n\nThe core runs without an API key — no dependencies, no latency, no cost. Connect it to OpenAI, Anthropic (Claude), or Gemini when you want a plain-language rationale you can paste directly into a research plan. CLI and JSON output available for teams who want this baked into automated workflows.\n\n## The thing worth documenting\n\nSample size decisions are usually made once, at the start of a study, and then quietly forgotten. But the assumptions behind them rarely get documented. When a study gets challenged later — by a stakeholder, a peer reviewer, or your own nagging doubt — having the rationale written down matters more than the number itself.\n\nTool 21 of 40 in the CPR Orbital series — shipping almost daily through December."
+  },
+
+  {
   "slug": "synthetic-panel",
   "title": "synthetic-panel: a persistent, versioned panel of synthetic research participants",
   "date": "2026-05-09",
