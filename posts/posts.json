@@ -1,5 +1,17 @@
 [
- 
+ {
+  "slug": "research-radar",
+  "title": "research-radar: a signal monitor that plugs into the research infrastructure you already have",
+  "date": "2026-08-14",
+  "type": "orbital",
+  "season": 4,
+  "tool": "research-radar",
+  "repo": "https://github.com/kgkazakos/research-radar",
+  "tags": ["mixed", "langchain", "streamlit", "cli", "open-source", "orbital-s4"],
+  "tldr": "Supports four signal sources — internal Neo4j knowledge graph, internal docs, text file, and live web scan — and synthesises signals across Methodology, Tooling, AI/LLM, Behavioral Shifts, Industry, and Academic categories. Designed to plug into the research infrastructure teams already have.",
+  "body": "## The quiet realisation\n\nAs I've been building out this toolset, a quiet realisation keeps surfacing: the teams who would benefit most from a signal monitor usually aren't lacking data.\n\nThey already have insight repositories, knowledge graphs, Confluence spaces, Dovetail archives. The real value isn't just in scanning the web — it's in finding the patterns within what they've already collected, and seeing how those connect to what's shifting externally.\n\nThat thought shaped `research-radar`. Rather than building another standalone tool, I designed it to plug into the research infrastructure teams already have in place.\n\n## Four signal sources\n\nSwitchable with a single flag:\n\n- **Internal knowledge graph** — connects to a Neo4j instance via Bolt URI, or reads a JSON export; runs a Cypher query against your insight repository and synthesises signals from what your team has already documented\n- **Internal docs** — reads a directory of `.txt` or `.md` files (Confluence exports, Notion dumps, raw research notes) and extracts signals from your accumulated knowledge\n- **Text file** — rule-based scan with zero API calls, for when you just need to process a corpus quickly\n- **Live web scan** — DuckDuckGo + LLM synthesis for external signals, no search API key required\n\n## What you get\n\nWhichever source you use, the output is consistent: signals categorised across Methodology, Tooling, AI/LLM, Behavioral Shifts, Industry, and Academic — rated HIGH/MEDIUM/LOW and wrapped in a synthesised narrative digest.\n\nSource chips tell you exactly where each insight originated. Signals carry provenance from your own past studies. The narrative grounds external patterns in what your team has already found.\n\nIt becomes less about \"what's happening in the world\" and more about \"what does our collective knowledge tell us, set against what's happening in the world.\"\n\nFor the LLM layer: GPT-4o, Claude Sonnet, or Gemini — whichever fits your stack.\n\n## The design problem I keep finding interesting\n\nTwenty-two tools in, and the problems I keep finding most interesting aren't about the LLMs — they're about the interface between computational tools and the human judgment needed to interpret what they surface.\n\nTool 22 of 40 in the CPR Orbital series — shipping almost daily through December."
+  },
+  
   {
   "slug": "sample-sizer",
   "title": "sample-sizer: an AI-assisted sample size calculator for the full qual-to-quant spectrum",
