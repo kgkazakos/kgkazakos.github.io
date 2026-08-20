@@ -105,6 +105,15 @@ footer{padding:40px 0;display:flex;align-items:center;justify-content:space-betw
       <button class="filter-btn" onclick="setTag('orbital-s4',this)">S4</button>
       <button class="filter-btn" onclick="setTag('orbital-s5',this)">S5</button>
       <button class="filter-btn" onclick="setTag('orbital-s6',this)">S6</button>
+      <div class="filter-divider"></div>
+      <span class="filter-group-label">Phase II</span>
+      <button class="filter-btn" onclick="setTag('orbital-p2',this)">All P2</button>
+      <button class="filter-btn" onclick="setTag('p2-frame-a',this)">A</button>
+      <button class="filter-btn" onclick="setTag('p2-frame-b',this)">B</button>
+      <button class="filter-btn" onclick="setTag('p2-frame-c',this)">C</button>
+      <button class="filter-btn" onclick="setTag('p2-frame-d',this)">D</button>
+      <button class="filter-btn" onclick="setTag('p2-frame-e',this)">E</button>
+      <button class="filter-btn" onclick="setTag('p2-frame-f',this)">F</button>
     </div>
     <span id="post-count"></span>
   </div>
@@ -122,7 +131,7 @@ footer{padding:40px 0;display:flex;align-items:center;justify-content:space-betw
 </div>
 
 <script>
-const SEASON_LABEL={1:'S1 · Signal starters',2:'S2 · Synthetic & simulation',3:'S3 · Evaluation & benchmarks',4:'S4 · Research ops',5:'S5 · Quant & mixed methods',6:'S6 · Pre-study & impact'};
+const SEASON_LABEL={1:'S1 · Signal starters',2:'S2 · Synthetic & simulation',3:'S3 · Evaluation & benchmarks',4:'S4 · Research ops',5:'S5 · Quant & mixed methods',6:'S6 · Pre-study & impact','P2V':'P2 · Vanguard','P2A':'P2 · Frame A · Test-time deliberation','P2B':'P2 · Frame B · Glass-box methodology','P2C':'P2 · Frame C · Simulated realities','P2D':'P2 · Frame D · Computational ethnography','P2E':'P2 · Frame E · AI-for-research-science','P2F':'P2 · Frame F · Continuous co-reasoning'};
 let posts=[], activeType='all', activeTag=null;
 
 function formatDate(d){return new Date(d).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});}
